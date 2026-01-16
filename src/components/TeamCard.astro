@@ -1,12 +1,14 @@
 ---
 import { Mail, Globe, Twitter, GraduationCap } from "lucide-react";
 import type { CollectionEntry } from "astro:content";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 interface Props {
   member: CollectionEntry<"team">;
+  roleOverride?: string;
 }
 
-const { member } = Astro.props;
+const { member, roleOverride } = Astro.props;
 const {
   name,
   role,
@@ -19,6 +21,33 @@ const {
   twitter,
   googleScholar,
 } = member.data;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Same mapping as in team page for consistency, or import a shared constant
+const roleToKey: Record<string, string> = {
+  "Principal Investigator": "role.pi",
+  Professor: "role.professor",
+  "Associate Professor": "role.associate",
+  "Assistant Professor": "role.assistant",
+  Teacher: "role.assistant",
+  "Postdoctoral Researcher": "role.postdoc",
+  Postdoc: "role.postdoc",
+  "Research Assistant": "role.research_assistant",
+  "PhD Student": "role.phd",
+  "Master Student": "role.master",
+  "Graduate Student": "role.master",
+  Undergraduate: "role.undergrad",
+  Student: "role.student",
+  "Former Member": "role.alumni",
+  Alumni: "role.alumni",
+  // Titles might appear here too
+  Director: "role.director",
+  "Co-Director": "role.codirector",
+  Doctor: "role.doctor",
+  Investigador: "role.researcher",
+};
 
 // Color mapping for title badges
 const badgeColors = [
@@ -197,29 +226,35 @@ const badgeColors = [
   <!-- Info -->
   <a
     href={`/team/${member.id.replace(/\.[^/.]+$/, "")}`}
-    class="hover:underline decoration-blue-600 underline-offset-2 mb-2"
+    class="hover:underline decoration-blue-600 underline-offset-2 mb-1"
   >
     <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
       {name}
     </h3>
   </a>
 
+  {/* Role display removed as per request */}
+  {
+    /* <p class="text-sm text-blue-600 dark:text-blue-400 font-medium mb-3">
+    {roleOverride || (roleToKey[role] ? t(roleToKey[role] as any) : role)}
+  </p> */
+  }
+
   {
     member.data.title && member.data.title.length > 0 && (
       <div class="flex flex-wrap justify-center gap-2 mb-3 px-2">
-        {member.data.title.map((t, index) => (
+        {member.data.title.map((titleBadge, index) => (
           <span
             class={`inline-block px-2 py-0.5 text-xs font-medium border rounded-full ${badgeColors[index % badgeColors.length]}`}
+            data-i18n-key={roleToKey[titleBadge]}
           >
-            {t}
+            {roleToKey[titleBadge]
+              ? t(roleToKey[titleBadge] as any)
+              : titleBadge}
           </span>
         ))}
       </div>
     )
-  }
-
-  {
-    /* Role display removed as per request, relying on section headers and title badges */
   }
 
   {/* Role display and bio removed as per request */}

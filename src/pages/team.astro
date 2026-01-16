@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import TeamCard from "../components/TeamCard.astro";
 import TeamFilters from "../components/TeamFilters.astro";
 import { getCollection } from "astro:content";
-
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 const allMembers = await getCollection("team");
 
 // Define groups based on user request
@@ -47,6 +47,27 @@ const getRolePriority = (role: string) => {
   return priorities[role] ?? 99;
 };
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const roleToKey: Record<string, string> = {
+  "Principal Investigator": "role.pi",
+  Professor: "role.professor",
+  "Associate Professor": "role.associate",
+  "Assistant Professor": "role.assistant",
+  Teacher: "role.assistant",
+  "Postdoctoral Researcher": "role.postdoc",
+  Postdoc: "role.postdoc",
+  "Research Assistant": "role.research_assistant",
+  "PhD Student": "role.phd",
+  "Master Student": "role.master",
+  "Graduate Student": "role.master",
+  Undergraduate: "role.undergrad",
+  Student: "role.student",
+  "Former Member": "role.alumni",
+  Alumni: "role.alumni",
+};
+
 // Group members
 const groupedMembers = groups.reduce(
   (acc, group) => {
@@ -72,6 +93,18 @@ const groupedMembers = groups.reduce(
         };
 
         return getSurname(a.data.name).localeCompare(getSurname(b.data.name));
+      })
+      .map((member) => {
+        // Translate the role for the card
+        const originalRole = member.data.role;
+        const translatedRole = roleToKey[originalRole]
+          ? t(roleToKey[originalRole])
+          : originalRole;
+        // Clone and override role with translated version for display
+        // We can't easily mutate the immutable content object, so we'll pass the translated role separately to TeamCard
+        // Or simpler: We modify the member object structure just for the template if possible, or better:
+        // Let's pass 'translatedRole' as a prop to TeamCard.
+        return { ...member, translatedRole };
       });
 
     if (members.length > 0) {
@@ -86,7 +119,7 @@ const groupedMembers = groups.reduce(
     id: string;
     titleKey: string;
     roles: string[];
-    members: typeof allMembers;
+    members: Array<(typeof allMembers)[0] & { translatedRole: string }>;
   }>,
 );
 ---
@@ -133,7 +166,10 @@ const groupedMembers = groups.reduce(
                   class="team-card-wrapper"
                   data-status={member.data.status || "inactive"}
                 >
-                  <TeamCard member={member} />
+                  <TeamCard
+                    member={member}
+                    roleOverride={member.translatedRole}
+                  />
                 </div>
               ))}
             </div>
