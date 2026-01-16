@@ -1,0 +1,57 @@
+---
+import { Image } from "astro:assets";
+
+// Props: accepts an array of image paths
+interface Props {
+    images: string[];
+}
+
+const { images } = Astro.props;
+// If no images provided, use a placeholder or fail gracefully
+const safeImages = images && images.length > 0 ? images : ["/placeholder.svg"];
+---
+
+<div class="carousel-container absolute inset-0 z-0 overflow-hidden">
+    {
+        safeImages.map((img, index) => (
+            <div
+                class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
+                data-index={index}
+            >
+                <img
+                    src={img}
+                    alt={`Hero Slide ${index + 1}`}
+                    class="w-full h-full object-cover"
+                />
+                {/* Dark Overlay inside slide to ensure it covers the image */}
+                <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
+            </div>
+        ))
+    }
+</div>
+
+<script>
+    function startCarousel() {
+        const slides = document.querySelectorAll(".carousel-slide");
+        if (slides.length <= 1) return;
+
+        let currentIndex = 0;
+        const intervalTime = 5000; // 5 seconds
+
+        setInterval(() => {
+            // Current slide fade out
+            slides[currentIndex].classList.remove("opacity-100");
+            slides[currentIndex].classList.add("opacity-0");
+
+            // Next slide
+            currentIndex = (currentIndex + 1) % slides.length;
+
+            // Next slide fade in
+            slides[currentIndex].classList.remove("opacity-0");
+            slides[currentIndex].classList.add("opacity-100");
+        }, intervalTime);
+    }
+
+    // Run on load
+    document.addEventListener("DOMContentLoaded", startCarousel);
+</script>

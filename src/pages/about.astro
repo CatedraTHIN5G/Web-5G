@@ -1,0 +1,386 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {
+    Lightbulb,
+    Target,
+    Rocket,
+    Globe,
+    Microscope,
+    Cpu,
+    Users,
+    BookOpen,
+    Signal,
+    Briefcase,
+    GraduationCap,
+    Megaphone,
+} from "lucide-react";
+import GenericCarousel from "../components/GenericCarousel.astro";
+import fs from "node:fs";
+import path from "node:path";
+import { SITE } from "../config";
+
+// Load Carousel Images
+const carouselDir = path.join(process.cwd(), "public", "Fotos", "About");
+let carouselImages: string[] = [];
+
+try {
+    if (fs.existsSync(carouselDir)) {
+        const files = fs.readdirSync(carouselDir);
+        const validExtensions = /\.(jpg|jpeg|png|webp|avif)$/i;
+        carouselImages = files
+            .filter((file) => validExtensions.test(file))
+            .map((file) => `/Fotos/About/${file}`);
+    }
+} catch (error) {
+    console.error("Error reading about carousel images:", error);
+}
+
+// Fallback if empty
+if (carouselImages.length === 0) {
+    carouselImages = ["/logoCatedra_dark.svg"];
+}
+---
+
+<Layout title="About the Chair | Cátedra Thin5G">
+    <!-- Hero Section -->
+    <div class="relative bg-slate-900 text-white py-24 overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:20px_20px] opacity-10"
+        >
+        </div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+            <h1
+                class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6"
+                data-i18n-key="about.pageTitle"
+            >
+                The THIN5G Chair
+            </h1>
+            <p
+                class="text-xl md:text-2xl text-blue-300 max-w-3xl mx-auto"
+                data-i18n-key="about.introSubtitle"
+            >
+                Enabling Technologies, Innovation and 5G
+            </p>
+        </div>
+    </div>
+
+    <!-- Origin & Vision Section -->
+    <div class="max-w-5xl mx-auto px-4 py-20 dark:text-gray-300">
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+            <div>
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-bold text-sm mb-6 border border-blue-100 dark:border-blue-800 uppercase tracking-wider"
+                >
+                    Desde 2021
+                </div>
+                <h2
+                    class="text-3xl font-bold text-gray-900 dark:text-white mb-6"
+                    data-i18n-key="about.pageTitle"
+                >
+                    La Cátedra THIN5G
+                </h2>
+                <p
+                    class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-justify"
+                    data-i18n-key="about.originText"
+                >
+                    La Cátedra THIN5G (Tecnologías Habilitantes, Innovación y
+                    5G) nace en 2021 de la iniciativa del Principado de Asturias
+                    y la Universidad de Oviedo. Actualmente financiada por
+                    GITPA, lidera la vanguardia en conectividad para impulsar la
+                    transformación tecnológica y el talento del futuro en
+                    nuestra región.
+                </p>
+                <div
+                    class="bg-gray-50 dark:bg-slate-900 border-l-4 border-blue-600 p-6 rounded-r-lg"
+                >
+                    <h3
+                        class="font-bold text-gray-900 dark:text-white mb-2"
+                        data-i18n-key="about.visionTitle"
+                    >
+                        Nuestra Vocación
+                    </h3>
+                    <p
+                        class="text-gray-700 dark:text-gray-300 italic text-justify"
+                        data-i18n-key="about.visionText"
+                    >
+                        Convertirse en el primer laboratorio abierto donde
+                        academia y sector privado generen conocimiento
+                        científico y transfieran potenciales aplicaciones clave
+                        para el futuro de nuestra Comunidad Autónoma,
+                        aprovechando el despliegue 5G.
+                    </p>
+                </div>
+            </div>
+            <div class="relative">
+                <!-- Carousel Container -->
+                <div
+                    class="aspect-square rounded-2xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 shadow-xl relative overflow-hidden group"
+                >
+                    <GenericCarousel
+                        images={carouselImages}
+                        className="w-full h-full"
+                        overlay={false}
+                        interval={4000}
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Goals Grid -->
+        <div class="text-center mb-16">
+            <h2
+                class="text-3xl font-bold text-gray-900 dark:text-white mb-4"
+                data-i18n-key="about.goalsTitle"
+            >
+                Objetivos Principales
+            </h2>
+            <p
+                class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                data-i18n-key="about.goalsIntro"
+            >
+                La Cátedra estructura su actividad en cuatro pilares
+                fundamentales para impulsar el ecosistema 5G:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+            <!-- Goal 1: Investigación -->
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group"
+            >
+                <div
+                    class="w-12 h-12 bg-blue-50 dark:bg-blue-900/50 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors"
+                >
+                    <Signal size={24} />
+                </div>
+                <h3
+                    class="font-bold text-gray-900 dark:text-white mb-2"
+                    data-i18n-key="about.goal1Title"
+                >
+                    Investigación 5G
+                </h3>
+                <p
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                    data-i18n-key="about.goal1"
+                >
+                    Impulsar la I+D+i en tecnologías 5G/6G y su aplicación
+                    regional.
+                </p>
+            </div>
+            <!-- Goal 2: Innovación -->
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group"
+            >
+                <div
+                    class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors"
+                >
+                    <Briefcase size={24} />
+                </div>
+                <h3
+                    class="font-bold text-gray-900 dark:text-white mb-2"
+                    data-i18n-key="about.goal2Title"
+                >
+                    Innovación
+                </h3>
+                <p
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                    data-i18n-key="about.goal2"
+                >
+                    Fomentar la aplicación tecnológica y la colaboración
+                    público-privada en su laboratorio abierto.
+                </p>
+            </div>
+            <!-- Goal 3: Formación -->
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group"
+            >
+                <div
+                    class="w-12 h-12 bg-green-50 dark:bg-green-900/50 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400 mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors"
+                >
+                    <GraduationCap size={24} />
+                </div>
+                <h3
+                    class="font-bold text-gray-900 dark:text-white mb-2"
+                    data-i18n-key="about.goal3Title"
+                >
+                    Formación
+                </h3>
+                <p
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                    data-i18n-key="about.goal3"
+                >
+                    Capacitar al mejor talento mediante becas, contratos y
+                    programas de afiliado.
+                </p>
+            </div>
+            <!-- Goal 4: Divulgación -->
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group"
+            >
+                <div
+                    class="w-12 h-12 bg-amber-50 dark:bg-amber-900/50 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4 group-hover:bg-amber-600 group-hover:text-white transition-colors"
+                >
+                    <Megaphone size={24} />
+                </div>
+                <h3
+                    class="font-bold text-gray-900 dark:text-white mb-2"
+                    data-i18n-key="about.goal4Title"
+                >
+                    Divulgación
+                </h3>
+                <p
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                    data-i18n-key="about.goal4"
+                >
+                    Conectar ciencia y sociedad a través de eventos, jornadas y
+                    demostraciones tecnológicas.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Lines of Action (Split bg) -->
+    <div class="grid md:grid-cols-2">
+        <!-- Research Side -->
+        <div
+            class="bg-slate-900 text-white p-12 lg:p-20 relative overflow-hidden group"
+        >
+            <!-- Watermark Icon -->
+            <div
+                class="absolute right-2 top-2 text-blue-500/10 group-hover:text-blue-500/30 transition-colors pointer-events-none"
+            >
+                <Microscope size={150} />
+            </div>
+
+            <div class="relative z-10">
+                <h2
+                    class="text-4xl font-bold mb-4 flex items-center gap-4"
+                    data-i18n-key="about.researchTitle"
+                >
+                    Investigación
+                </h2>
+                <div class="w-16 h-1.5 bg-blue-500 mb-10 rounded-full"></div>
+
+                <p
+                    class="text-slate-300 text-lg mb-10 leading-relaxed text-justify"
+                    data-i18n-key="about.researchDesc"
+                >
+                    Fortalecemos la capacidad investigadora y la colaboración
+                    institucional en comunicaciones avanzadas a través de:
+                </p>
+
+                <ul class="space-y-8">
+                    <li class="flex gap-5">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center text-base font-bold border border-blue-500/30"
+                        >
+                            1
+                        </div>
+                        <span
+                            class="text-slate-200 text-lg py-1 text-justify"
+                            data-i18n-key="about.resA"
+                            >Desarrollo de líneas conjuntas entre diferentes
+                            departamentos, Universidades y empresas.</span
+                        >
+                    </li>
+                    <li class="flex gap-5">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center text-base font-bold border border-blue-500/30"
+                        >
+                            2
+                        </div>
+                        <span
+                            class="text-slate-200 text-lg py-1 text-justify"
+                            data-i18n-key="about.resB"
+                            >Cooperación para lograr proyectos regionales,
+                            nacionales e internacionales.</span
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Innovation Side -->
+        <div
+            class="bg-gray-200 dark:bg-slate-800 text-gray-900 dark:text-gray-100 p-12 lg:p-20 relative overflow-hidden group"
+        >
+            <!-- Watermark Icon -->
+            <div
+                class="absolute right-2 top-2 text-purple-600/5 dark:text-purple-400/10 group-hover:text-purple-600/20 dark:group-hover:text-purple-400/30 transition-colors pointer-events-none"
+            >
+                <Lightbulb size={150} />
+            </div>
+
+            <div class="relative z-10">
+                <h2
+                    class="text-4xl font-bold mb-4 flex items-center gap-4 dark:text-white text-gray-900"
+                    data-i18n-key="about.transferTitle"
+                >
+                    Innovación y Desarrollo
+                </h2>
+                <div class="w-16 h-1.5 bg-purple-500 mb-10 rounded-full"></div>
+
+                <p
+                    class="text-gray-600 dark:text-gray-400 text-lg mb-10 leading-relaxed text-justify"
+                    data-i18n-key="about.transferDesc"
+                >
+                    Posicionamos la Cátedra como un catalizador de progreso
+                    tecnológico, liderando iniciativas que permitan:
+                </p>
+
+                <ul class="space-y-8">
+                    <li class="flex gap-5">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center text-base font-bold border border-purple-200 dark:border-purple-700/50"
+                        >
+                            A
+                        </div>
+                        <div
+                            class="text-gray-700 dark:text-gray-300 text-lg py-1 text-justify"
+                        >
+                            <span data-i18n-key="about.transA"
+                                >Fomentar un espacio de aprendizaje y validación
+                                mediante el uso de nuestro laboratorio abierto y
+                                entornos de demostración técnica.</span
+                            >
+                        </div>
+                    </li>
+                    <li class="flex gap-5">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center text-base font-bold border border-purple-200 dark:border-purple-700/50"
+                        >
+                            B
+                        </div>
+                        <div
+                            class="text-gray-700 dark:text-gray-300 text-lg py-1 text-justify"
+                        >
+                            <span data-i18n-key="about.transB"
+                                >Convertir el conocimiento en innovación
+                                aplicada a través de prototipos experimentales y
+                                soluciones reales en entornos reales.</span
+                            >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div
+        class="bg-white dark:bg-black py-20 border-t border-gray-100 dark:border-slate-900"
+    >
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-8 dark:text-white">
+                ¿Quieres saber más sobre nuestro trabajo?
+            </h2>
+            <a
+                href="/projects"
+                class="inline-flex items-center gap-3 bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-700 transition-all hover:scale-105 shadow-lg shadow-blue-500/20"
+            >
+                <Lightbulb size={24} />
+                Explorar Nuestros Proyectos
+            </a>
+        </div>
+    </div>
+</Layout>

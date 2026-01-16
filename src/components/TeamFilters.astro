@@ -1,0 +1,135 @@
+---
+
+---
+
+<div class="flex flex-wrap justify-center gap-4 mb-12">
+    <button
+        class="filter-btn active px-6 py-2 rounded-full font-medium transition-all duration-200 bg-blue-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105"
+        data-filter="all"
+        data-i18n-key="team.filter.all"
+    >
+        All
+    </button>
+    <button
+        class="filter-btn px-6 py-2 rounded-full font-medium transition-all duration-200 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 border border-gray-200 dark:border-gray-700"
+        data-filter="active"
+        data-i18n-key="team.filter.active"
+    >
+        Active
+    </button>
+    <button
+        class="filter-btn px-6 py-2 rounded-full font-medium transition-all duration-200 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 border border-gray-200 dark:border-gray-700"
+        data-filter="inactive"
+        data-i18n-key="team.filter.inactive"
+    >
+        Inactive
+    </button>
+</div>
+
+<script>
+    function initFilters() {
+        const buttons = document.querySelectorAll(".filter-btn");
+        const cards = document.querySelectorAll(".team-card-wrapper");
+
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                // Active state for buttons
+                buttons.forEach((b) => {
+                    b.classList.remove(
+                        "bg-blue-600",
+                        "text-white",
+                        "shadow-lg",
+                        "shadow-blue-500/30",
+                        "hover:shadow-blue-500/50",
+                        "hover:scale-105",
+                        "active",
+                    );
+                    b.classList.add(
+                        "bg-white",
+                        "dark:bg-gray-800",
+                        "text-gray-600",
+                        "dark:text-gray-300",
+                        "hover:bg-gray-50",
+                        "dark:hover:bg-gray-700",
+                        "hover:text-blue-600",
+                        "dark:hover:text-blue-400",
+                        "border",
+                        "border-gray-200",
+                        "dark:border-gray-700",
+                    );
+                });
+
+                btn.classList.remove(
+                    "bg-white",
+                    "dark:bg-gray-800",
+                    "text-gray-600",
+                    "dark:text-gray-300",
+                    "hover:bg-gray-50",
+                    "dark:hover:bg-gray-700",
+                    "hover:text-blue-600",
+                    "dark:hover:text-blue-400",
+                    "border",
+                    "border-gray-200",
+                    "dark:border-gray-700",
+                );
+                btn.classList.add(
+                    "bg-blue-600",
+                    "text-white",
+                    "shadow-lg",
+                    "shadow-blue-500/30",
+                    "hover:shadow-blue-500/50",
+                    "hover:scale-105",
+                    "active",
+                );
+
+                const filter = btn.getAttribute("data-filter");
+
+                cards.forEach((card) => {
+                    const section = card.closest("section");
+                    const isFaculty =
+                        section &&
+                        section.getAttribute("data-group") === "faculty";
+                    const status =
+                        card.getAttribute("data-status") || "inactive";
+
+                    // Faculty always visible
+                    if (isFaculty) {
+                        (card as HTMLElement).style.display = "";
+                        (card as HTMLElement).style.opacity = "1";
+                        return;
+                    }
+
+                    if (filter === "all" || status === filter) {
+                        (card as HTMLElement).style.display = "";
+                        (card as HTMLElement).style.opacity = "0";
+                        setTimeout(
+                            () => ((card as HTMLElement).style.opacity = "1"),
+                            50,
+                        );
+                    } else {
+                        (card as HTMLElement).style.display = "none";
+                    }
+                });
+
+                // Hide empty sections
+                document.querySelectorAll("section").forEach((section) => {
+                    const visibleCards = Array.from(
+                        section.querySelectorAll(".team-card-wrapper"),
+                    ).filter(
+                        (c) => (c as HTMLElement).style.display !== "none",
+                    );
+
+                    if (visibleCards.length === 0) {
+                        (section as HTMLElement).style.display = "none";
+                    } else {
+                        (section as HTMLElement).style.display = "";
+                    }
+                });
+            });
+        });
+    }
+
+    // Run on load and after view transitions
+    document.addEventListener("astro:page-load", initFilters);
+    document.addEventListener("DOMContentLoaded", initFilters);
+</script>

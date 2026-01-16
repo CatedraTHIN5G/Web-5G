@@ -1,0 +1,360 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { BookOpen, CheckCircle, Filter, ChevronDown } from "lucide-react";
+
+// Fetch Collections
+const projects = (await getCollection("projects"))
+  .filter((p) => !p.id.endsWith("-es"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const teamEntries = await getCollection("team");
+const teamMap = new Map(teamEntries.map((t) => [t.id, t.data.name]));
+
+// Collect unique tags with translations
+const tagMap = new Map();
+projects.forEach((p) => {
+  if (p.data.tags) {
+    p.data.tags.forEach((tag, i) => {
+      if (!tagMap.has(tag)) {
+        tagMap.set(tag, {
+          id: tag,
+          en: tag,
+          es: p.data.tags_es?.[i] || tag,
+        });
+      }
+    });
+  }
+});
+const uniqueTags = Array.from(tagMap.values()).sort((a, b) =>
+  a.en.localeCompare(b.en),
+);
+
+import { getLangFromUrl } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+---
+
+<Layout title="Projects">
+  <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h1
+        class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4"
+        data-i18n-key="projects.title"
+      >
+        Research Projects
+      </h1>
+      <p
+        class="text-lg text-gray-600 dark:text-gray-400"
+        data-i18n-key="projects.subtitle"
+      >
+        A comprehensive collection of our projects, innovation, and ongoing
+        technical developments.
+      </p>
+    </div>
+
+    <!-- Tag Filters (Dropdown Multi-select) -->
+    <div class="flex justify-end mb-12 relative z-20">
+      <div class="relative group">
+        <button
+          id="filter-dropdown-btn"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all font-medium min-w-[200px] justify-between z-20 relative"
+          aria-expanded="false"
+        >
+          <div class="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-blue-600" />
+            <span id="filter-current-label" data-i18n-key="projects.filterBy">
+              Filter by Tag
+            </span>
+          </div>
+          <ChevronDown
+            className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors"
+          />
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div
+          id="filter-menu"
+          class="absolute top-full right-0 mt-2 w-full min-w-[240px] bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-xl opacity-0 invisible transform -translate-y-2 transition-all duration-200 z-10 flex flex-col p-1.5 max-h-64 overflow-y-auto"
+        >
+          <button
+            class="filter-option-all text-left px-4 py-2.5 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors flex items-center justify-between group/opt active-option"
+            data-filter="all"
+          >
+            <span data-i18n-key="projects.all">All Projects</span>
+            <CheckCircle
+              className="w-4 h-4 opacity-0 group-[.active-option]/opt:opacity-100 text-blue-600 dark:text-blue-400 check-icon"
+            />
+          </button>
+
+          <div class="h-px bg-gray-100 dark:bg-gray-700 my-1"></div>
+
+          {
+            uniqueTags.map((tag) => (
+              <button
+                class="filter-option text-left px-4 py-2.5 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center justify-between group/opt"
+                data-filter={tag.id}
+              >
+                <span data-i18n-en={tag.en} data-i18n-es={tag.es}>
+                  {tag.en}
+                </span>
+                <CheckCircle className="w-4 h-4 opacity-0 group-[.active-option]/opt:opacity-100 text-blue-600 dark:text-blue-400 check-icon" />
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Projects Grid -->
+    <div
+      class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-24"
+      id="projects-grid"
+    >
+      {
+        projects.map((project) => (
+          <div
+            class="project-card group relative flex flex-col bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-gray-200/50 dark:shadow-none hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden"
+            data-tags={project.data.tags?.join(",")}
+          >
+            {project.data.cover && (
+              <div class="h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
+                <img
+                  src={project.data.cover.src}
+                  alt={project.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            )}
+            {!project.data.cover && (
+              <div class="h-48 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center">
+                <BookOpen className="w-12 h-12 text-blue-300 dark:text-blue-700/50" />
+              </div>
+            )}
+
+            <div class="p-6 flex flex-col flex-grow">
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.data.tags?.map((tag, index) => (
+                  <span
+                    class="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800"
+                    data-i18n-en={tag}
+                    data-i18n-es={project.data.tags_es?.[index]}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                data-i18n-en={project.data.title}
+                data-i18n-es={project.data.title_es}
+              >
+                {project.data.title}
+              </h3>
+
+              <p
+                class="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow"
+                data-i18n-en={project.data.summary}
+                data-i18n-es={project.data.summary_es}
+              >
+                {project.data.summary}
+              </p>
+
+              <div class="flex flex-col text-sm text-gray-600 dark:text-gray-400 mt-auto">
+                <span class="font-bold text-gray-900 dark:text-gray-100">
+                  Integrantes:
+                </span>
+                <span>
+                  {project.data.team
+                    ? project.data.team.map((memberId, index) => {
+                        // Remove extension if present for linking
+                        const cleanId = memberId.replace(/\.[^/.]+$/, "");
+                        return (
+                          <>
+                            <a
+                              href={`/team#${cleanId}`}
+                              class="text-blue-600 dark:text-blue-400 hover:underline"
+                            >
+                              {teamMap.get(memberId) || memberId}
+                            </a>
+                            {index < project.data.team!.length - 1 ? ", " : ""}
+                          </>
+                        );
+                      })
+                    : "N/A"}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <script is:inline>
+      document.addEventListener("astro:page-load", () => {
+        initFilters();
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        initFilters();
+      });
+
+      function initFilters() {
+        const dropdownBtn = document.getElementById("filter-dropdown-btn");
+        const filterMenu = document.getElementById("filter-menu");
+        const filterOptions = document.querySelectorAll(".filter-option");
+        const allOption = document.querySelector(".filter-option-all");
+        const projectCards = document.querySelectorAll(".project-card");
+        const currentLabel = document.getElementById("filter-current-label");
+
+        let selectedTags = new Set();
+
+        if (!dropdownBtn || !filterMenu) return;
+
+        // Toggle
+        dropdownBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isExpanded =
+            dropdownBtn.getAttribute("aria-expanded") === "true";
+          toggleMenu(!isExpanded);
+        });
+
+        // Close outside
+        document.addEventListener("click", (e) => {
+          if (
+            !filterMenu.contains(e.target) &&
+            !dropdownBtn.contains(e.target)
+          ) {
+            toggleMenu(false);
+          }
+        });
+
+        function toggleMenu(show) {
+          dropdownBtn.setAttribute("aria-expanded", String(show));
+          if (show) {
+            filterMenu.classList.remove(
+              "opacity-0",
+              "invisible",
+              "-translate-y-2",
+            );
+          } else {
+            filterMenu.classList.add(
+              "opacity-0",
+              "invisible",
+              "-translate-y-2",
+            );
+          }
+        }
+
+        function updateGrid() {
+          // Filter
+          projectCards.forEach((card) => {
+            const tags = (card.getAttribute("data-tags") || "").split(",");
+            // OR Logic
+            if (
+              selectedTags.size === 0 ||
+              [...selectedTags].some((t) => tags.includes(t))
+            ) {
+              card.style.display = "flex";
+              card.style.opacity = "0";
+              setTimeout(() => (card.style.opacity = "1"), 50);
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          // UI
+          if (selectedTags.size === 0) {
+            allOption?.classList.remove("text-gray-600", "dark:text-gray-400");
+            allOption?.classList.add(
+              "active-option",
+              "text-gray-700",
+              "dark:text-gray-200",
+            );
+
+            // Reset text
+            const defaultText =
+              dropdownBtn
+                .querySelector("[data-i18n-key='projects.filterBy']")
+                ?.getAttribute("data-original-text") || "Filter by Tag";
+            // Simplified reset logic
+            if (currentLabel) {
+              // We rely on i18n logic elsewhere, but for now reset to default key behavior if possible
+              // Or just leave "Filter by Tag"
+              const key = currentLabel.getAttribute("data-i18n-key");
+              // This part assumes client side i18n might run again or we manually set it
+              // For simplicity, we won't drastically change the text back to complex localized string here easily without helper,
+              // but we can set it to the "All" label if we wanted, or just "Filter by Tag".
+              // Ideally we just specificy dynamic count.
+
+              // Quick fix: Set to "Filter by Tag" localized? Use key mechanism if available.
+              // The observer will pick it up if we change language.
+              // Let's just set innerText to the value of the key from the DOM if present elsewhere? No.
+              // We will set it to:
+              const lang = document.documentElement.lang;
+              currentLabel.innerText =
+                lang === "es" ? "Filtrar por Etiqueta" : "Filter by Tag";
+            }
+          } else {
+            allOption?.classList.remove(
+              "active-option",
+              "text-gray-700",
+              "dark:text-gray-200",
+            );
+            allOption?.classList.add("text-gray-600", "dark:text-gray-400");
+
+            if (currentLabel) {
+              const lang = document.documentElement.lang;
+              const prefix = lang === "es" ? "Seleccionados" : "Selected";
+              currentLabel.innerText = `${selectedTags.size} ${prefix}`;
+            }
+          }
+
+          filterOptions.forEach((btn) => {
+            const tag = btn.getAttribute("data-filter");
+            if (selectedTags.has(tag)) {
+              btn.classList.add(
+                "active-option",
+                "bg-blue-50",
+                "dark:bg-blue-900/20",
+                "text-blue-600",
+                "dark:text-blue-400",
+              );
+              btn.classList.remove("text-gray-600", "dark:text-gray-400");
+            } else {
+              btn.classList.remove(
+                "active-option",
+                "bg-blue-50",
+                "dark:bg-blue-900/20",
+                "text-blue-600",
+                "dark:text-blue-400",
+              );
+              btn.classList.add("text-gray-600", "dark:text-gray-400");
+            }
+          });
+        }
+
+        // Click All
+        allOption?.addEventListener("click", () => {
+          selectedTags.clear();
+          updateGrid();
+        });
+
+        // Click Option
+        filterOptions.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const filter = btn.getAttribute("data-filter");
+
+            if (selectedTags.has(filter)) {
+              selectedTags.delete(filter);
+            } else {
+              selectedTags.add(filter);
+            }
+
+            updateGrid();
+          });
+        });
+      }
+    </script>
+  </div>
+</Layout>

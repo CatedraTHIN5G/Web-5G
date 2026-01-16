@@ -1,0 +1,370 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import { SITE } from "../config";
+import { ui, defaultLang } from "../i18n/ui";
+import { Github, Instagram, Linkedin } from "lucide-react";
+import logoUniovi from "../assets/Logo_uniovi.jpg";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const pageTitle = title
+  ? `${title} | ${SITE.labName}`
+  : `${SITE.labName} - ${SITE.university}`;
+
+// Define dynamic OG Image
+const currentPath = Astro.url.pathname.replace(/^\/|\/$/g, "");
+const ogSlug = currentPath === "" ? "index" : currentPath;
+const supportedOgPages = [
+  "index",
+  "projects",
+  "team",
+  "publications",
+  "news",
+  "join",
+  "events",
+];
+const finalOgSlug = supportedOgPages.includes(ogSlug) ? ogSlug : "index";
+const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src 'self' https://*.google.com https://maps.google.com;"
+    />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+
+    <script is:inline>
+      (function () {
+        const theme = localStorage.getItem("theme") || "light";
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    {
+      Astro.url.pathname === "/" && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: SITE.author,
+            url: SITE.website,
+            image: new URL(SITE.avatar || SITE.logo, SITE.website).href,
+            jobTitle: "Principal Investigator",
+            worksFor: {
+              "@type": "Organization",
+              name: SITE.labName,
+              url: SITE.website,
+            },
+            description: SITE.description,
+          })}
+        />
+      )
+    }
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-grow" data-pagefind-body>
+      <slot />
+    </main>
+
+    <footer
+      class="bg-gray-900 border-t border-gray-800 text-gray-300 font-sans"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <!-- Col 1: Contact (Medialab style: clean info) -->
+          <div>
+            <h4
+              class="text-white font-bold uppercase tracking-wider mb-6 text-sm"
+            >
+              Contacto
+            </h4>
+            <div class="space-y-4 text-sm leading-relaxed">
+              <p>
+                <strong class="text-white block mb-1">Cátedra Thin5G</strong>
+                Edificio Polivalente, Campus de Gijón<br />
+                Calle Luis Ortiz Berrocal, s/n<br />
+                <span class="text-blue-400 font-semibold"
+                  >Módulo 7 - Planta 1</span
+                ><br />
+                33203 Gijón, Asturias, España
+              </p>
+              <p>
+                <a
+                  href="mailto:thin5g@uniovi.es"
+                  class="text-white hover:text-blue-400 font-medium transition-colors"
+                >
+                  thin5g@uniovi.es
+                </a>
+              </p>
+              <div class="pt-4">
+                <a
+                  href="https://thin5g.uniovi.es/catedra-thin-5g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="opacity-100 hover:opacity-80 transition-opacity"
+                >
+                  <img
+                    src="/logoCatedra_dark.svg"
+                    alt="Cátedra Thin5G"
+                    class="h-14"
+                  />
+                </a>
+              </div>
+
+              <!-- Social Media Icons -->
+              <div class="flex gap-4 pt-6">
+                <a
+                  href="https://github.com/CatedraTHIN5G"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://www.instagram.com/openlab5g/?hl=es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-6 h-6" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/catedra-thin5g/?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADrrs8wBFMD6YwkTsoUJA2-el55eYCtVCPg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Col 2: Enlaces / Links -->
+          <div>
+            <h4
+              class="text-white font-bold uppercase tracking-wider mb-6 text-sm"
+            >
+              Enlaces
+            </h4>
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="/projects" class="hover:text-white transition-colors"
+                  >Proyectos</a
+                >
+              </li>
+              <li>
+                <a href="/events" class="hover:text-white transition-colors"
+                  >Actividades y Eventos</a
+                >
+              </li>
+              <li>
+                <a href="/team" class="hover:text-white transition-colors"
+                  >Equipo</a
+                >
+              </li>
+              <li>
+                <a href="/join" class="hover:text-white transition-colors"
+                  >Trabaja con Nosotros</a
+                >
+              </li>
+              <!-- Nueva incorporación: Intranet 5G -->
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-white transition-colors"
+                  onclick="return false;">Intranet 5G</a
+                >
+              </li>
+
+              <li class="pt-4 border-t border-gray-800 mt-4">
+                <a
+                  href="https://thin5g.uniovi.es/aviso-legal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-white text-xs">Aviso Legal</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.uniovi.es/privacidad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-white text-xs">Política de Privacidad</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Map (Fixed Embed) -->
+          <div
+            class="w-full h-80 bg-gray-800 rounded-lg overflow-hidden border border-gray-700"
+          >
+            <iframe
+              src="https://maps.google.com/maps?q=Edificio+Polivalente,+Calle+Luis+Ortiz+Berrocal,+Gijón&t=&z=17&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="w-full h-full"></iframe>
+          </div>
+        </div>
+
+        <!-- Sponsors / Financiación -->
+        <div class="mt-16 pt-8 border-t border-gray-800">
+          <p
+            class="text-xs uppercase tracking-widest text-gray-500 mb-6 text-center md:text-left"
+          >
+            Impulsado por
+          </p>
+          <div
+            class="flex flex-wrap items-center justify-center md:justify-start gap-8 transition-all duration-500"
+          >
+            <!-- Principado (User Provided PNG) -->
+            <img
+              src="/PrincipadoDeAsturias.png"
+              alt="Gobierno del Principado de Asturias"
+              class="h-11 w-auto bg-white p-1 rounded-sm"
+            />
+
+            <!-- GITPA -->
+            <img
+              src="/GITPA.png"
+              alt="GITPA"
+              class="h-12 w-auto bg-white p-1 rounded-sm"
+            />
+
+            <!-- Universidad de Oviedo -->
+            <a
+              href="https://www.uniovi.es"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:opacity-80 transition-opacity"
+            >
+              <img
+                src={logoUniovi.src}
+                alt="Universidad de Oviedo"
+                class="h-12 w-auto bg-white p-1 rounded-sm"
+              />
+            </a>
+
+            <!-- EU NextGen -->
+            <div class="flex items-center gap-2">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/320px-Flag_of_Europe.svg.png"
+                alt="Unión Europea"
+                class="h-10 w-auto"
+              />
+              <div
+                class="text-[10px] leading-tight max-w-[150px] border-l border-gray-600 pl-3"
+              >
+                Financiado por la Unión Europea<br />
+                <span class="font-bold">NextGenerationEU</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 text-center text-xs text-gray-600">
+          &copy; {new Date().getFullYear()}
+          {SITE.labName}. Todos los derechos reservados.
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline define:vars={{ ui, defaultLang }}>
+      // Make ui available globally for debugging if needed, but main logic is here
+      const translations = ui;
+      const fallbackLang = defaultLang;
+
+      function getStoredLang() {
+        if (typeof localStorage !== "undefined") {
+          return localStorage.getItem("preferred-lang") || fallbackLang;
+        }
+        return fallbackLang;
+      }
+
+      // Expose global setLanguage function
+      window.setLanguage = (lang) => {
+        localStorage.setItem("preferred-lang", lang);
+        document.documentElement.lang = lang;
+
+        // Update all elements with data-i18n-key
+        const elements = document.querySelectorAll("[data-i18n-key]");
+        elements.forEach((el) => {
+          const key = el.getAttribute("data-i18n-key");
+          if (key && translations[lang] && translations[lang][key]) {
+            // Check if it's an input/textarea with placeholder
+            if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+              el.placeholder = translations[lang][key];
+            } else {
+              el.textContent = translations[lang][key];
+            }
+          }
+        });
+
+        // Update elements with dynamic translations (data-i18n-en, data-i18n-es, etc.)
+        const dynamicElements = document.querySelectorAll(
+          `[data-i18n-${lang}]`,
+        );
+        dynamicElements.forEach((el) => {
+          const translatedText = el.getAttribute(`data-i18n-${lang}`);
+          if (translatedText) {
+            el.textContent = translatedText;
+          }
+        });
+
+        // Dispatch event for other components (like Header)
+        window.dispatchEvent(
+          new CustomEvent("language-change", { detail: { lang } }),
+        );
+      };
+
+      // Initialize
+      const currentLang = getStoredLang();
+      // Run immediately to avoid flash
+      window.setLanguage(currentLang);
+    </script>
+  </body>
+</html>

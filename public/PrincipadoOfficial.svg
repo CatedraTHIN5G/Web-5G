@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80">
+  <rect width="300" height="80" fill="white" />
+  
+  <!-- Shield with Cruz de la Victoria -->
+  <g transform="translate(10, 10)">
+     <!-- Blue Background Shield -->
+     <path d="M10 0 H50 V40 C50 55 30 60 30 60 S10 55 10 40 V0 Z" fill="#0072c6" />
+     
+     <!-- Yellow Cross -->
+     <path d="M30 10 V50 M20 25 H40" stroke="#f7d417" stroke-width="4" stroke-linecap="round" />
+     
+     <!-- Alpha & Omega hanging letters -->
+     <text x="22" y="45" font-family="serif" font-size="8" fill="#f7d417" text-anchor="middle">α</text>
+     <text x="38" y="45" font-family="serif" font-size="8" fill="#f7d417" text-anchor="middle">ω</text>
+  </g>
+
+  <!-- Text -->
+  <g transform="translate(70, 48)">
+    <text font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0072c6">
+      GOBIERNO DEL
+    </text>
+    <text y="18" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0072c6">
+      PRINCIPADO DE ASTURIAS
+    </text>
+  </g>
+</svg>
