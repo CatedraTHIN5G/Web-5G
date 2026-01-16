@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import { Calendar, ArrowLeft } from "lucide-react";
 
 export async function getStaticPaths() {
@@ -11,7 +11,21 @@ export async function getStaticPaths() {
   }));
 }
 
-const { item } = Astro.props;
+const { slug } = Astro.params;
+let { item } = Astro.props;
+
+if (!item && slug) {
+  try {
+    item = await getEntry("events", slug);
+  } catch (e) {
+    console.error(`Error fetching event for slug: ${slug}`, e);
+  }
+}
+
+if (!item) {
+  return Astro.redirect("/404");
+}
+
 const { Content } = await render(item);
 ---
 
