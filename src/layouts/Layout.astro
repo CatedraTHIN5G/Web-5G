@@ -125,10 +125,10 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
               </p>
               <p>
                 <a
-                  href="mailto:thin5g@uniovi.es"
+                  href={`mailto:${SITE.email}`}
                   class="text-white hover:text-blue-400 font-medium transition-colors"
                 >
-                  thin5g@uniovi.es
+                  {SITE.email}
                 </a>
               </p>
               <div class="pt-4">
