@@ -7,3 +7,4 @@ description: "Participación en el hackathon final del proyecto Gijón Industry,
 description_en: "Participation in the final hackathon of the Gijón Industry project, presenting technology demonstrators based on 5G and collaborating with educational centers."
 ---
 Participación en el hackathon final del proyecto Gijón Industry, presentando demostradores tecnológicos basados en 5G y colaborando con centros educativos.
+

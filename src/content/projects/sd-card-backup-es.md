@@ -60,3 +60,4 @@ Es importante tener en cuenta que este proceso **sobrescribirá completamente** 
 Una vez seleccionado el archivo `.img` y el dispositivo de destino, se inicia el proceso de restauración mediante la opción de **Escritura** (Write). El contenido del archivo se copia íntegramente en la tarjeta SD, reproduciendo exactamente la estructura, configuración y datos del sistema original.
 
 Tras finalizar el proceso, la tarjeta SD queda lista para su uso, con el mismo contenido que tenía en el momento en que se realizó la copia de seguridad.
+

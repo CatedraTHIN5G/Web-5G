@@ -7,3 +7,4 @@ description: "Sesión doble de divulgación: Visita al CDTL de Coaña (Ortiguera
 description_en: "Double outreach session: Visit to the CDTL of Coaña (Ortiguera) and conference at the House of Culture of Taramundi on 5G technology and applications in society."
 ---
 Sesión doble de divulgación: Visita al CDTL de Coaña (Ortiguera) y conferencia en la Casa de Cultura de Taramundi sobre tecnología 5G y aplicaciones en la sociedad.
+

@@ -8,3 +8,4 @@ tags_es: ["Gemelo Digital", "Robótica", "3D", "Industria"]
 date: 2024-05-20
 team: ["estudiante-alvaro-javier-fernandez-de-la-concha"]
 ---
+

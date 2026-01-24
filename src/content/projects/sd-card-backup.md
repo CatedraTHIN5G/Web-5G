@@ -60,3 +60,4 @@ It is important to note that this process will **completely overwrite** the cont
 Once the `.img` file and the destination device are selected, start the restoration process using the **Write** option. The file content is copied entirely onto the SD card, exactly reproducing the structure, configuration, and data of the original system.
 
 After the process is finished, the SD card is ready for use, with the same content it had at the moment the backup was made.
+

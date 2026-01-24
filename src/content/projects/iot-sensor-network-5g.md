@@ -8,3 +8,4 @@ tags_es: ["IoT", "5G", "Sensores", "NFC", "Monitorización"]
 date: 2023-09-01
 team: ["estudiante-jairo-tunon-diaz"]
 ---
+

@@ -8,3 +8,4 @@ tags_es: ["IoT", "Sensores", "Sistemas Embebidos", "Monitorización"]
 date: 2024-04-15
 team: ["estudiante-jairo-tunon-diaz"]
 ---
+

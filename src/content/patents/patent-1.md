@@ -7,3 +7,4 @@ status: "Granted"
 link: "https://patents.google.com/"
 ---
 A patent describing a new method for recognizing objects in cluttered scenes.
+

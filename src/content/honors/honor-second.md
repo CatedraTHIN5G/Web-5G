@@ -7,3 +7,4 @@ type: "Other"
 level: "Second"
 ---
 Awarded for the project "Optimization of Logistics Network".
+

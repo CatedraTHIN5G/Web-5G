@@ -167,3 +167,4 @@ wg-quick up wg0
 ```bash
 wg-quick down wg0
 ```
+

@@ -8,3 +8,4 @@ tags_es: ["Plataforma Web", "Robótica", "AGV", "Control Remoto", "IoT"]
 date: 2023-11-20
 team: ["estudiante-alvaro-javier-fernandez-de-la-concha", "estudiante-daniel-solares-ardisana"]
 ---
+

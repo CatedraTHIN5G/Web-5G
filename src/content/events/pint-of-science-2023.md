@@ -7,3 +7,4 @@ description: "Participación en el festival internacional Pint of Science, divul
 description_en: "Participation in the international festival Pint of Science, widely disseminating the role of 5G and its technological applications in an environment open to the general public."
 ---
 Participación en el festival internacional Pint of Science, divulgando de forma accesible el papel del 5G y sus aplicaciones tecnológicas en un entorno abierto al público general.
+

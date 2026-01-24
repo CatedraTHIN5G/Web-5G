@@ -166,3 +166,4 @@ Una vez con el programa lanzado, si todo ha salido bien, podremos conectarnos a 
 *   A partir de cierta resolución (HD), el video se ve muy mal (**H264**): es cuestión de cómo está implementado el codec en la librería de `aiortc`.
     Si se observa el archivo `\src\aiortc\codecs\h264.py`, se puede observar que el bitrate está limitado, por lo que se ha de incrementar todos los márgenes si se quiere transmitir con buena calidad y tasa de frames.
 *   A partir de cierta resolución (HD), la retransmisión usa mucho ancho de banda (**VP8**). Si se observa el archivo `\src\aiortc\codecs\vpx.py`, se puede observar que el bitrate está limitado, por lo que se han de ajustar los márgenes.
+

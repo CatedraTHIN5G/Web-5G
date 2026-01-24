@@ -150,3 +150,4 @@ sudo iptables -t nat -A POSTROUTING -o usb0 -j MASQUERADE
 ```
 
 Una vez reiniciados los servicios de red, la Raspberry Pi operará como un enrutador 5G completo.
+

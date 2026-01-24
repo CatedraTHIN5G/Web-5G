@@ -8,3 +8,4 @@ tags_es: ["Vehículos Autónomos", "5G", "Robótica", "Control Remoto"]
 date: 2023-08-10
 team: ["estudiante-victor-arbesu-fernandez"]
 ---
+

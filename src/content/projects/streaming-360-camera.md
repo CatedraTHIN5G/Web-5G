@@ -8,3 +8,4 @@ tags_es: ["Vídeo 360", "Insta360", "WebRTC", "OpenCV", "Streaming"]
 date: 2024-05-15
 team: ["estudiante-piarina-canizo-otero", "estudiante-carla-fernandez-lobeto", "estudiante-carlos-marquez-marina", "estudiante-daniel-solares-ardisana"]
 ---
+

@@ -7,3 +7,4 @@ type: "Other"
 level: "Third"
 ---
 Awarded to the team "CodeWarriors".
+

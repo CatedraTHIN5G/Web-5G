@@ -5,7 +5,8 @@ title: ["Director", "Doctor"]
 status: "active"
 avatar: "../../assets/rafael-gonzalez.jpg"
 bio: "Principal Investigator of the THIN5G Chair."
-email: "rayestaran@uniovi.es"
+email: "thin5g@uniovi.es"
 linkedin: "https://www.linkedin.com/in/rayestaran/"
 weight: 1
 ---
+

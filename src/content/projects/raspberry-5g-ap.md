@@ -150,3 +150,4 @@ sudo iptables -t nat -A POSTROUTING -o usb0 -j MASQUERADE
 ```
 
 Once network services are restarted, the Raspberry Pi will operate as a fully functional 5G router.
+

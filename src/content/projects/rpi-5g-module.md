@@ -210,3 +210,4 @@ sudo ifup wwan0
 ```bash
 sudo ifdown wwan0
 ```
+

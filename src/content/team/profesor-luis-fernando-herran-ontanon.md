@@ -4,6 +4,7 @@ role: "Associate Professor"
 title: ["Investigador", "Doctor"]
 status: "active"
 avatar: "../../assets/default-avatar.png"
-email: "herranluis@uniovi.es"
+email: "thin5g@uniovi.es"
 weight: 3
 ---
+

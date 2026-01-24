@@ -7,3 +7,4 @@ description: "Sesión doble de conferencias sobre tecnología 5G y sus aplicacio
 description_en: "Double session of conferences on 5G technology and its applications in society, within the scientific dissemination program of the University of Oviedo."
 ---
 Sesión doble de conferencias sobre tecnología 5G y sus aplicaciones en la sociedad, dentro del programa de divulgación científica de la Universidad de Oviedo.
+

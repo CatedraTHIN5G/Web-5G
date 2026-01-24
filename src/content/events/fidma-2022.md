@@ -7,3 +7,4 @@ description: "Participación en la Feria Internacional de Muestras de Asturias (
 description_en: "Participation in the International Trade Fair of Asturias (FIDMA) within the Meetings with Industrial Technical Engineers, disseminating applications and challenges of 5G technology in industry and society."
 ---
 Participación en la Feria Internacional de Muestras de Asturias (FIDMA) dentro de los Encuentros con Ingenieros Técnicos Industriales, divulgando aplicaciones y retos de la tecnología 5G en la industria y la sociedad.
+

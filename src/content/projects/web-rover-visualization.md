@@ -8,3 +8,4 @@ tags_es: ["Rover", "AGV", "WebRTC", "Streaming", "Control Remoto"]
 date: 2024-06-01
 team: ["estudiante-miguel-villanueva-fernandez", "estudiante-carla-fernandez-lobeto"]
 ---
+

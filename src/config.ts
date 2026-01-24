@@ -1,4 +1,4 @@
-import heroImage from './assets/hero-real.jpg';
+import heroImage from './assets/gitpa.jpg';
 // import logoImage from './assets/logo-catedra.png';
 
 export const SITE = {
@@ -6,7 +6,7 @@ export const SITE = {
   author: 'Scholar-Lite Team',
   description: 'A lightweight, modern static website template for academic labs and scholars.',
   title: 'Scholar-Lite',
-  ogImage: 'astropaper-og.jpg',
+  ogImage: 'GITPA.png',
   lightAndDarkMode: true,
   postPerPage: 3,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
@@ -16,7 +16,7 @@ export const SITE = {
   university: 'Uniovi',
   logo: '/logoCatedra.svg', // Logo path
   avatar: '/assets/logo-real.svg', // Avatar for SEO/Schema
-  email: 'thin5g2@gmail.com', // Contact email for Join Us page
+  email: 'thin5g@uniovi.es', // Contact email for Join Us page
 
   // Hero Section (Home Page) - Main content does not need to be translated for 8 languages by default
   hero: {

@@ -8,3 +8,4 @@ tags_es: ["Diseño PCB", "Robótica", "Hardware"]
 date: 2023-10-15
 team: ["estudiante-jairo-tunon-diaz"]
 ---
+

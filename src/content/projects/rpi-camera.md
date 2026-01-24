@@ -166,3 +166,4 @@ Once the program is launched, if everything went well, we can connect to the web
 *    above a certain resolution (HD), the video looks very bad (**H264**): it is a matter of how the codec is implemented in the `aiortc` library.
     If you look at the file `\src\aiortc\codecs\h264.py`, you can see that the bitrate is limited, so all margins must be increased if one wants to transmit with good quality and frame rate.
 *   Above a certain resolution (HD), the stream uses a lot of bandwidth (**VP8**). If you look at the file `\src\aiortc\codecs\vpx.py`, you can see that the bitrate is limited, so margins must be adjusted.
+

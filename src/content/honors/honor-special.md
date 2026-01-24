@@ -7,3 +7,4 @@ type: "Internet+"
 level: "Special"
 ---
 Awarded for the project "Next Gen AI".
+

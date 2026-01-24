@@ -8,3 +8,4 @@ tags_es: ["Robótica", "Conducción Autónoma", "LiDAR", "5G", "Mapeo"]
 date: 2024-03-10
 team: ["estudiante-carmen-covadonga-blanco-gonzalez"]
 ---
+

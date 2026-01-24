@@ -9,9 +9,10 @@ export default defineConfig({
   compressHTML: true,
   build: {
     inlineStylesheets: 'always',
-    assetsInlineLimit: 10240, // 10KB to inline achievements.css (7.5KB)
+
   },
   vite: {
+    // @ts-ignore
     plugins: [tailwindcss()],
     build: {
       assetsInlineLimit: 10240,

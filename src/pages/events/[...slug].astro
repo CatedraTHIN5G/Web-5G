@@ -16,7 +16,7 @@ let { item } = Astro.props;
 
 if (!item && slug) {
   try {
-    item = await getEntry("events", slug);
+    item = (await getEntry("events", slug)) as any;
   } catch (e) {
     console.error(`Error fetching event for slug: ${slug}`, e);
   }

@@ -141,3 +141,4 @@ Console Output:
 ```text
 El nivel de señal en wlan0 es: -45 dBm
 ```
+

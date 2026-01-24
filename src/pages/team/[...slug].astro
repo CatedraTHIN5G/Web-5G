@@ -30,7 +30,7 @@ let { member } = Astro.props;
 if (!member && slug) {
     // Fallback for SSR/Preview where props might be missing
     try {
-        member = await getEntry("team", slug);
+        member = (await getEntry("team", slug)) as any;
     } catch (e) {
         console.error(`Error fetching team member for slug: ${slug}`, e);
     }
@@ -76,7 +76,7 @@ const roleToKey: Record<string, string> = {
     Investigador: "role.researcher",
 };
 
-const translatedRole = roleToKey[role] ? t(roleToKey[role]) : role;
+const translatedRole = roleToKey[role] ? t(roleToKey[role] as any) : role;
 ---
 
 <Layout title={name}>
@@ -217,7 +217,7 @@ rounded border border-blue-200"
                                     >
                                         {" "}
                                         {roleToKey[tItem]
-                                            ? t(roleToKey[tItem])
+                                            ? t(roleToKey[tItem] as any)
                                             : tItem}{" "}
                                     </span>
                                 ))}{" "}

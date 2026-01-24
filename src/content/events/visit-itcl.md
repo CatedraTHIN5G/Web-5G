@@ -7,3 +7,4 @@ description: "Jornadas intensas de intercambio tecnológico con Borja Pérez (IT
 description_en: "Intense days of technological exchange with Borja Pérez (ITCL) and Nacho Cantero (ITC) on 5G, advanced communications, and Industry 4.0, opening new lines of collaboration in the 5G Open Laboratory."
 ---
 Jornadas intensas de intercambio tecnológico con Borja Pérez (ITCL) y Nacho Cantero (ITC) sobre 5G, comunicaciones avanzadas e Industria 4.0, abriendo nuevas líneas de colaboración en el Laboratorio Abierto 5G.
+

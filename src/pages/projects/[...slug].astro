@@ -34,8 +34,8 @@ const lang = getLangFromUrl(Astro.url);
 const displaySummary = lang === "es" && summary_es ? summary_es : summary;
 
 // Map roles to i18n keys
-const getRoleKey = (role) => {
-    const map = {
+const getRoleKey = (role: string) => {
+    const map: Record<string, string> = {
         "Principal Investigator": "role.pi",
         Professor: "role.professor",
         "Associate Professor": "role.associate",

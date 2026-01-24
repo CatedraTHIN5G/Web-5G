@@ -19,8 +19,8 @@ export const ui = {
 
     'site.labName': 'CatedraThin5G',
     'site.university': 'Uniovi',
-    'hero.title': 'Advancing Computer Vision & Deep Learning Research.',
-    'hero.subtitle': 'We are the Scholar-Lite Lab.',
+    'hero.title': 'Driving the 5G Future & Digital Innovation.',
+    'hero.subtitle': 'The Open Laboratory for 5G Research, Education, and Technology Transfer in Asturias.',
 
     'search.subtitle': 'Search through our publications, news, and team members.',
     'hero.viewPubs': 'View Publications',
@@ -105,6 +105,7 @@ export const ui = {
     'join.doubts': 'Any questions?',
     'join.doubtsText': 'If you have any doubts about the process or opportunities, feel free to write to us at:',
     'join.sendEmail': 'Send Email',
+    'join.contactEmail': 'thin5g@uniovi.es',
 
     'join.benefits.title': 'Why Join Cátedra THIN5G?',
     'join.benefits.subtitle': 'A unique environment for growth',
@@ -172,7 +173,6 @@ export const ui = {
     'role.student': 'Student',
     'role.alumni': 'Alumni',
     'role.director': 'Director',
-    'role.codirector': 'Co-Director',
     'role.codirector': 'Co-Director',
     'role.doctor': 'PhD',
     'role.researcher': 'Researcher',
@@ -296,6 +296,7 @@ export const ui = {
     'join.doubts': '¿Tienes dudas?',
     'join.doubtsText': 'Si tienes alguna duda sobre el proceso o las oportunidades, no dudes en escribirnos a nuestro correo de contacto:',
     'join.sendEmail': 'Enviar correo electrónico',
+    'join.contactEmail': 'thin5g@uniovi.es',
 
     'join.benefits.title': '¿Por qué la Cátedra THIN5G?',
     'join.benefits.subtitle': 'Un entorno único para crecer',
@@ -344,11 +345,14 @@ export const ui = {
 
     'team.title': 'Nuestro equipo',
     'team.subtitle': 'Conozca a los investigadores y estudiantes detrás de nuestras innovaciones.',
+    'team.support': 'Personal de soporte',
     'team.pi': 'Investigador Principal',
+    'team.faculty': 'Docentes',
     'team.professor': 'Profesores',
     'team.teacher': 'Facultad',
     'team.researcher': 'Doctorados y Posdocs',
     'team.student': 'Estudiantes',
+    'team.youth_researcher': 'Investigadores posdoctorales',
     'team.postdoc_researcher': 'Investigadores posdoctorales',
     'team.postdoc': 'Investigadores posdoctorales',
     'team.phd': 'Estudiante de doctorado',
@@ -368,7 +372,6 @@ export const ui = {
     'role.undergrad': 'Alumno de Grado',
     'role.alumni': 'Exalumno',
     'role.director': 'Director',
-    'role.codirector': 'Co-Director',
     'role.codirector': 'Co-Director',
     'role.doctor': 'Doctor',
     'role.student': 'Estudiante',
