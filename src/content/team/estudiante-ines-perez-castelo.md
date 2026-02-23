@@ -1,6 +1,7 @@
 ---
 name: "Inés Pérez Castelo"
-role: "Student"
+role: "PhD Student"
+title: ["Project Researcher"]
 avatar: "../../assets/default-avatar.png"
 weight: 60
 status: "active"

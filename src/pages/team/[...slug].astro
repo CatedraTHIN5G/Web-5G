@@ -57,7 +57,7 @@ const {
 const roleToKey: Record<string, string> = {
     "Principal Investigator": "role.pi",
     Professor: "role.professor",
-    "Associate Professor": "role.associate",
+    "Associate Professor": "role.titular",
     "Assistant Professor": "role.assistant",
     Teacher: "role.assistant",
     "Postdoctoral Researcher": "role.postdoc",
@@ -74,6 +74,10 @@ const roleToKey: Record<string, string> = {
     "Co-Director": "role.codirector",
     Doctor: "role.doctor",
     Investigador: "role.researcher",
+    "Ramón y Cajal Researcher": "role.ryc",
+    "Project Researcher": "role.project_researcher",
+    "Professor / Associate Professor": "role.cate_titular",
+    "Professor / Ramón y Cajal Researcher": "role.cate_ryc",
 };
 
 const translatedRole = roleToKey[role] ? t(roleToKey[role] as any) : role;
@@ -83,20 +87,37 @@ const translatedRole = roleToKey[role] ? t(roleToKey[role] as any) : role;
     <div class="max-w-4xl mx-auto px-4 py-12 sm:py-20">
         <a
             href="/team"
-            class="inline-flex items-center text-sm text-gray-500 hover:text-blue-600 mb-8
-transition-colors"
+            class="inline-flex items-center text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 mb-8 transition-colors"
         >
             <ArrowLeft className="w-4 h-4 mr-1" /> Back to Team
         </a>
         <div
-            class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm mb-12"
+            class="bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-100 dark:border-gray-800 shadow-sm mb-12"
         >
             <div class="flex flex-col md:flex-row gap-8 items-start">
                 <div
-                    class="w-32 h-32
-md:w-48 md:h-48 rounded-2xl overflow-hidden bg-gray-100 shrink-0 mx-auto
-md:mx-0"
+                    class="w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden bg-gray-100 shrink-0 mx-auto md:mx-0 relative"
                 >
+                    {
+                        member.data.status && (
+                            <div
+                                class={`absolute top-2 right-2 z-10 px-2 py-0.5 rounded-full text-[10px] font-bold text-white shadow-sm
+                                ${
+                                    member.data.status === "active"
+                                        ? "bg-green-500"
+                                        : member.data.status === "inactive"
+                                          ? "bg-gray-500"
+                                          : member.data.status === "affiliate"
+                                            ? "bg-blue-500"
+                                            : "bg-gray-500"
+                                }`}
+                                data-i18n-key={`team.filter.${member.data.status}`}
+                            >
+                                {member.data.status.charAt(0).toUpperCase() +
+                                    member.data.status.slice(1)}
+                            </div>
+                        )
+                    }
                     <img
                         src={avatar.src}
                         alt={name}
@@ -104,10 +125,13 @@ md:mx-0"
                     />
                 </div>
                 <div class="flex-grow text-center md:text-left">
-                    <h1 class="text-3xl
-font-bold text-gray-900 mb-2">{name}</h1>
+                    <h1
+                        class="text-3xl font-bold text-gray-900 dark:text-white mb-2"
+                    >
+                        {name}
+                    </h1>
                     <p
-                        class="text-xl text-blue-600 font-medium mb-6"
+                        class="text-xl text-blue-600 dark:text-blue-400 font-medium mb-6"
                         data-i18n-key={roleToKey[role]}
                     >
                         {translatedRole}
@@ -120,9 +144,7 @@ font-bold text-gray-900 mb-2">{name}</h1>
                             email && (
                                 <a
                                     href={`mailto:${email}`}
-                                    class="flex
-items-center gap-2 px-4 py-2 rounded-full bg-gray-50 text-gray-600
-hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                                 >
                                     {" "}
                                     <Mail className="w-4 h-4" />{" "}
@@ -135,9 +157,7 @@ hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm"
                                 <a
                                     href={website}
                                     target="_blank"
-                                    class="flex items-center gap-2 px-4 py-2
-rounded-full bg-gray-50 text-gray-600 hover:bg-blue-50 hover:text-blue-600
-transition-colors text-sm"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                                 >
                                     {" "}
                                     <Globe className="w-4 h-4" />{" "}
@@ -150,9 +170,7 @@ transition-colors text-sm"
                                 <a
                                     href={linkedin}
                                     target="_blank"
-                                    class="flex
-items-center gap-2 px-4 py-2 rounded-full bg-gray-50 text-gray-600
-hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                                 >
                                     {" "}
                                     <Linkedin className="w-4 h-4" />{" "}
@@ -165,9 +183,7 @@ hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm"
                                 <a
                                     href={github}
                                     target="_blank"
-                                    class="flex items-center gap-2 px-4 py-2
-rounded-full bg-gray-50 text-gray-600 hover:bg-blue-50 hover:text-blue-600
-transition-colors text-sm"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                                 >
                                     {" "}
                                     <Github className="w-4 h-4" />{" "}
@@ -180,9 +196,7 @@ transition-colors text-sm"
                                 <a
                                     href={twitter}
                                     target="_blank"
-                                    class="flex
-items-center gap-2 px-4 py-2 rounded-full bg-gray-50 text-gray-600
-hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                                 >
                                     {" "}
                                     <Twitter className="w-4 h-4" />{" "}
@@ -195,9 +209,7 @@ hover:bg-blue-50 hover:text-blue-600 transition-colors text-sm"
                                 <a
                                     href={googleScholar}
                                     target="_blank"
-                                    class="flex items-center gap-2 px-4 py-2
-rounded-full bg-gray-50 text-gray-600 hover:bg-blue-50 hover:text-blue-600
-transition-colors text-sm"
+                                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                                 >
                                     {" "}
                                     <GraduationCap className="w-4 h-4" />
@@ -211,8 +223,7 @@ transition-colors text-sm"
                             <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4">
                                 {title.map((tItem) => (
                                     <span
-                                        class="bg-blue-100 text-blue-800 text-xs px-2.5 py-0.5
-rounded border border-blue-200"
+                                        class="bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 text-xs px-2.5 py-0.5 rounded border border-blue-200 dark:border-blue-800"
                                         data-i18n-key={roleToKey[tItem]}
                                     >
                                         {" "}
@@ -227,7 +238,9 @@ rounded border border-blue-200"
                 </div>
             </div>
         </div>
-        <div class="prose prose-lg prose-blue max-w-none text-gray-700">
+        <div
+            class="prose prose-lg prose-blue dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
+        >
             <Content />
         </div>
     </div>

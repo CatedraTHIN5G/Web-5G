@@ -71,7 +71,11 @@ const team = defineCollection({
       'Master Student',
       'Undergraduate',
       'Student',
-      'Alumni'
+      'Alumni',
+      'Professor / Associate Professor',
+      'Professor / Ramón y Cajal Researcher',
+      'Researcher',
+      'Director'
     ]),
     title: z.array(z.string()).optional(), // For specific academic titles like "Academician", "Changjiang Scholar"
     avatar: image(),

@@ -115,7 +115,7 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
             </h4>
             <div class="space-y-4 text-sm leading-relaxed">
               <p>
-                <strong class="text-white block mb-1">Cátedra Thin5G</strong>
+                <strong class="text-white block mb-1">CÁTEDRA THIN5G</strong>
                 Edificio Polivalente, Campus de Gijón<br />
                 Calle Luis Ortiz Berrocal, s/n<br />
                 <span class="text-blue-400 font-semibold"
@@ -263,18 +263,32 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
             class="flex flex-wrap items-center justify-center md:justify-start gap-8 transition-all duration-500"
           >
             <!-- Principado (User Provided PNG) -->
-            <img
-              src="/PrincipadoDeAsturias.png"
-              alt="Gobierno del Principado de Asturias"
-              class="h-11 w-auto bg-white p-1 rounded-sm"
-            />
+            <a
+              href="https://transparencia.asturias.es/consejerias/ciencia-industria-empleo"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/PrincipadoDeAsturias.png"
+                alt="Gobierno del Principado de Asturias"
+                class="h-11 w-auto bg-white p-1 rounded-sm"
+              />
+            </a>
 
             <!-- GITPA -->
-            <img
-              src="/GITPA.png"
-              alt="GITPA"
-              class="h-12 w-auto bg-white p-1 rounded-sm"
-            />
+            <a
+              href="https://www.gitpa.es/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/GITPA.png"
+                alt="GITPA"
+                class="h-12 w-auto bg-white p-1 rounded-sm"
+              />
+            </a>
 
             <!-- Universidad de Oviedo -->
             <a
@@ -289,21 +303,6 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
                 class="h-12 w-auto bg-white p-1 rounded-sm"
               />
             </a>
-
-            <!-- EU NextGen -->
-            <div class="flex items-center gap-2">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/320px-Flag_of_Europe.svg.png"
-                alt="Unión Europea"
-                class="h-10 w-auto"
-              />
-              <div
-                class="text-[10px] leading-tight max-w-[150px] border-l border-gray-600 pl-3"
-              >
-                Financiado por la Unión Europea<br />
-                <span class="font-bold">NextGenerationEU</span>
-              </div>
-            </div>
           </div>
         </div>
 

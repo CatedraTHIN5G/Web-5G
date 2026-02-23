@@ -1,7 +1,7 @@
 ---
 name: "Rafael González Ayestarán"
-role: "Principal Investigator"
-title: ["Director", "Doctor"]
+role: "Director"
+title: ["Director", "Doctor", "Professor"]
 status: "active"
 avatar: "../../assets/rafael-gonzalez.jpg"
 bio: "Principal Investigator of the THIN5G Chair."

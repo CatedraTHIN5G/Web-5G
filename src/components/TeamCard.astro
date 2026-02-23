@@ -29,7 +29,7 @@ const t = useTranslations(lang);
 const roleToKey: Record<string, string> = {
   "Principal Investigator": "role.pi",
   Professor: "role.professor",
-  "Associate Professor": "role.associate",
+  "Associate Professor": "role.titular",
   "Assistant Professor": "role.assistant",
   Teacher: "role.assistant",
   "Postdoctoral Researcher": "role.postdoc",
@@ -42,11 +42,14 @@ const roleToKey: Record<string, string> = {
   Student: "role.student",
   "Former Member": "role.alumni",
   Alumni: "role.alumni",
-  // Titles might appear here too
   Director: "role.director",
   "Co-Director": "role.codirector",
   Doctor: "role.doctor",
   Investigador: "role.researcher",
+  "Ramón y Cajal Researcher": "role.ryc",
+  "Project Researcher": "role.project_researcher",
+  "Professor / Associate Professor": "role.cate_titular",
+  "Professor / Ramón y Cajal Researcher": "role.cate_ryc",
 };
 
 // Color mapping for title badges
@@ -69,15 +72,9 @@ const badgeColors = [
   >
     <!-- Status Badge -->
     {
-      member.data.status &&
-        ![
-          "Principal Investigator",
-          "Professor",
-          "Associate Professor",
-          "Assistant Professor",
-        ].includes(member.data.role) && (
-          <div
-            class={`absolute top-3 right-3 z-10 px-2 py-1 rounded-full text-xs font-bold text-white shadow-sm
+      member.data.status && (
+        <div
+          class={`absolute top-3 right-3 z-10 px-2 py-1 rounded-full text-xs font-bold text-white shadow-sm
           ${
             member.data.status === "active"
               ? "bg-green-500"
@@ -87,12 +84,12 @@ const badgeColors = [
                   ? "bg-blue-500"
                   : "bg-gray-500"
           }`}
-            data-i18n-key={`team.filter.${member.data.status}`}
-          >
-            {member.data.status.charAt(0).toUpperCase() +
-              member.data.status.slice(1)}
-          </div>
-        )
+          data-i18n-key={`team.filter.${member.data.status}`}
+        >
+          {member.data.status.charAt(0).toUpperCase() +
+            member.data.status.slice(1)}
+        </div>
+      )
     }
 
     <a

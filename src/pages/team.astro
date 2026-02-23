@@ -10,18 +10,21 @@ const allMembers = await getCollection("team");
 const groups = [
   {
     id: "faculty",
-    titleKey: "team.professor",
+    titleKey: "team.responsables",
     roles: [
       "Principal Investigator",
       "Professor",
       "Associate Professor",
       "Assistant Professor",
+      "Professor / Associate Professor",
+      "Professor / Ramón y Cajal Researcher",
+      "Director",
     ],
   },
   {
     id: "researcher",
-    titleKey: "team.researcher",
-    roles: ["Postdoc", "PhD Student", "Research Assistant"],
+    titleKey: "team.researchers_students",
+    roles: ["Postdoc", "PhD Student", "Research Assistant", "Researcher"],
   },
   {
     id: "student",
@@ -32,13 +35,17 @@ const groups = [
 
 const getRolePriority = (role: string) => {
   const priorities: Record<string, number> = {
-    "Principal Investigator": 0,
+    Director: 0,
+    "Principal Investigator": 1,
     Professor: 1,
+    "Professor / Associate Professor": 1,
+    "Professor / Ramón y Cajal Researcher": 1,
     "Associate Professor": 2,
     "Assistant Professor": 3,
     Postdoc: 4,
     "PhD Student": 5,
     "Research Assistant": 5, // Same priority as PhD for alpha sort
+    Researcher: 6,
     "Master Student": 7,
     Undergraduate: 7, // Same priority as Master for alpha sort
     Student: 7, // Same priority for alpha sort
@@ -58,6 +65,7 @@ const roleToKey: Record<string, string> = {
   Teacher: "role.assistant",
   "Postdoctoral Researcher": "role.postdoc",
   Postdoc: "role.postdoc",
+  Researcher: "role.researcher",
   "Research Assistant": "role.research_assistant",
   "PhD Student": "role.phd",
   "Master Student": "role.master",
@@ -66,6 +74,10 @@ const roleToKey: Record<string, string> = {
   Student: "role.student",
   "Former Member": "role.alumni",
   Alumni: "role.alumni",
+  "Ramón y Cajal Researcher": "role.ryc",
+  "Professor / Associate Professor": "role.cate_titular",
+  "Professor / Ramón y Cajal Researcher": "role.cate_ryc",
+  Director: "role.director",
 };
 
 // Group members

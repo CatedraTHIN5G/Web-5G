@@ -221,9 +221,9 @@ if (carouselImages.length === 0) {
           events.map((item) => {
             const link = `/events/${item.id.replace(/\.[^/.]+$/, "")}`;
             return (
-              <div class="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all">
+              <div class="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden shadow-sm hover:shadow-md transition-all">
                 {item.data.cover && (
-                  <a href={link} class="block h-48 overflow-hidden">
+                  <div class="block h-48 overflow-hidden">
                     <img
                       src={
                         typeof item.data.cover === "string"
@@ -231,34 +231,29 @@ if (carouselImages.length === 0) {
                           : item.data.cover.src
                       }
                       alt={item.data.title}
-                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      class="w-full h-full object-cover"
                     />
-                  </a>
+                  </div>
                 )}
                 <div class="p-6">
                   <div class="text-sm text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     {item.data.date.toLocaleDateString()}
                   </div>
-                  <h3 class="text-xl font-bold text-black dark:text-white group-hover:text-gray-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-2">
-                    <a
-                      href={link}
-                      data-i18n-en={item.data.title}
-                      data-i18n-es={item.data.title_es}
+                  <h3 class="text-xl font-bold text-black dark:text-white mb-2 line-clamp-2">
+                    <span
+                      data-i18n-en={item.data.title_en}
+                      data-i18n-es={item.data.title}
                     >
                       {item.data.title}
-                    </a>
+                    </span>
                   </h3>
                   <p
                     class="text-gray-600 dark:text-gray-300 line-clamp-3 text-sm"
-                    data-i18n-en={
-                      item.data.description ||
-                      (item.body || "").substring(0, 100)
-                    }
-                    data-i18n-es={item.data.description_es}
+                    data-i18n-en={item.data.description_en}
+                    data-i18n-es={item.data.description}
                   >
-                    {item.data.description ||
-                      (item.body || "").substring(0, 100)}
+                    {item.data.description}
                   </p>
                 </div>
               </div>

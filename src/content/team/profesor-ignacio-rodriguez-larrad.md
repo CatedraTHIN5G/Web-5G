@@ -1,7 +1,7 @@
 ---
 name: "Ignacio Rodríguez Larrad"
-role: "Associate Professor"
-title: ["Investigador", "Doctor"]
+role: "Professor / Ramón y Cajal Researcher"
+title: ["Investigador", "Doctor", "Ramón y Cajal Researcher"]
 status: "active"
 avatar: "../../assets/ignacio-rodriguez.jpg"
 email: "thin5g@uniovi.es"

@@ -6,7 +6,7 @@ import { SITE } from "../config";
 
 <Layout title="Join Us | Cátedra Thin5G">
   <!-- Hero / Introduction Section -->
-  <div class="max-w-4xl mx-auto px-4 py-12 sm:py-20 lg:pt-32">
+  <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20 lg:pt-32">
     <div class="text-center mb-16">
       <h1
         class="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-6"
@@ -26,6 +26,29 @@ import { SITE } from "../config";
     <!-- Student Cards Removed as per user request to avoid generic requirements -->
 
     <!-- Benefits Section (Why Join Us?) -->
+    <div class="flex justify-center mb-16">
+      <a
+        href="/research-lines"
+        class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-full font-bold shadow-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all transform hover:-translate-y-1"
+      >
+        <span data-i18n-key="join.researchLines.btn">Research Lines</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-5 h-5"
+          ><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+            points="12 5 19 12 12 19"></polyline></svg
+        >
+      </a>
+    </div>
+
     <div class="mb-24">
       <div
         class="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 sm:p-12 border border-blue-100 dark:border-gray-700 relative overflow-hidden"
@@ -155,11 +178,11 @@ import { SITE } from "../config";
       </div>
     </div>
 
-    <!-- Apply Process & Contact (3 Columns) -->
-    <div class="grid lg:grid-cols-3 gap-8 mb-16">
+    <!-- Apply Process & Contact (4 Columns) -->
+    <div class="grid lg:grid-cols-4 gap-6 mb-16">
       <!-- How to Apply -->
       <div
-        class="bg-gray-900 dark:bg-gray-800 rounded-3xl p-8 text-white relative overflow-hidden flex flex-col justify-between"
+        class="bg-gray-900 dark:bg-gray-800 rounded-3xl p-6 text-white relative overflow-hidden flex flex-col justify-between"
       >
         <div class="relative z-10">
           <div
@@ -184,11 +207,11 @@ import { SITE } from "../config";
               ></line></svg
             >
           </div>
-          <h2 class="text-2xl font-bold mb-4" data-i18n-key="join.howToApply">
+          <h2 class="text-xl font-bold mb-4" data-i18n-key="join.howToApply">
             How to Apply
           </h2>
           <p
-            class="text-gray-300 leading-relaxed"
+            class="text-gray-300 text-sm leading-relaxed"
             data-i18n-key="join.applicationText"
           >
             Scholarship offers are managed by the Fundación Universidad de
@@ -199,7 +222,7 @@ import { SITE } from "../config";
 
       <!-- TFG/TFM/Thesis Box -->
       <div
-        class="bg-white dark:bg-gray-700/50 rounded-3xl p-8 border border-gray-200 dark:border-gray-600 relative overflow-hidden flex flex-col justify-between"
+        class="bg-white dark:bg-gray-700/50 rounded-3xl p-6 border border-gray-200 dark:border-gray-600 relative overflow-hidden flex flex-col justify-between"
       >
         <div class="relative z-10">
           <div
@@ -208,13 +231,13 @@ import { SITE } from "../config";
             <BookOpen className="w-6 h-6" />
           </div>
           <h2
-            class="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+            class="text-xl font-bold text-gray-900 dark:text-white mb-4"
             data-i18n-key="join.tfg.title"
           >
             TFG / TFM / Thesis
           </h2>
           <p
-            class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed"
+            class="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed"
             data-i18n-key="join.tfg.text"
           >
             Contact professors associated with the Chair for more details.
@@ -222,7 +245,7 @@ import { SITE } from "../config";
 
           <a
             href="/team"
-            class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:gap-3 transition-all"
+            class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:gap-3 transition-all text-sm"
           >
             <span data-i18n-key="join.tfg.btn">Meet the Faculty</span>
             <svg
@@ -243,9 +266,55 @@ import { SITE } from "../config";
         </div>
       </div>
 
+      <!-- Resident Program (New) -->
+      <div
+        class="bg-emerald-50 dark:bg-emerald-900/20 rounded-3xl p-6 border border-emerald-100 dark:border-emerald-800 relative overflow-hidden flex flex-col justify-between"
+      >
+        <div class="relative z-10">
+          <div
+            class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400"
+          >
+            <GraduationCap className="w-6 h-6" />
+          </div>
+          <h2
+            class="text-xl font-bold text-gray-900 dark:text-white mb-4"
+            data-i18n-key="join.resident.title"
+          >
+            Resident Program
+          </h2>
+          <p
+            class="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed"
+            data-i18n-key="join.resident.text"
+          >
+            Join our resident program for TFG, TFM, or PhD.
+          </p>
+
+          <a
+            href="mailto:thin5g@uniovi.es"
+            class="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold hover:gap-3 transition-all text-sm"
+          >
+            <span data-i18n-key="join.resident.btn">thin5g@uniovi.es</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4"
+              ><line x1="22" y1="2" x2="11" y2="13"></line><polygon
+                points="22 2 15 22 11 13 2 9 22 2"></polygon></svg
+            >
+          </a>
+        </div>
+      </div>
+
       <!-- Doubts / Contact -->
       <div
-        class="bg-blue-600 dark:bg-blue-900 rounded-3xl p-8 text-white relative overflow-hidden flex flex-col justify-between"
+        class="bg-blue-600 dark:bg-blue-900 rounded-3xl p-6 text-white relative overflow-hidden flex flex-col justify-between"
       >
         <div class="relative z-10">
           <div
@@ -253,11 +322,11 @@ import { SITE } from "../config";
           >
             <Info className="w-6 h-6" />
           </div>
-          <h2 class="text-2xl font-bold mb-4" data-i18n-key="join.doubts">
+          <h2 class="text-xl font-bold mb-4" data-i18n-key="join.doubts">
             Any questions?
           </h2>
           <p
-            class="text-blue-100 mb-6 leading-relaxed"
+            class="text-blue-100 text-sm mb-6 leading-relaxed"
             data-i18n-key="join.doubtsText"
           >
             Write to us at:
@@ -265,10 +334,10 @@ import { SITE } from "../config";
 
           <a
             href={`mailto:${SITE.email}`}
-            class="inline-flex items-center gap-3 bg-white text-blue-900 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition-colors transform hover:-translate-y-1 duration-200"
+            class="inline-flex items-center gap-2 bg-white text-blue-900 px-4 py-3 rounded-xl font-bold hover:bg-blue-50 transition-colors transform hover:-translate-y-1 duration-200 text-sm w-full justify-center"
           >
-            <Mail className="w-5 h-5" />
-            <span>{SITE.email}</span>
+            <Mail className="w-4 h-4" />
+            <span class="truncate">{SITE.email}</span>
           </a>
         </div>
       </div>
