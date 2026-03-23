@@ -1,12 +1,11 @@
-import heroImage from './assets/gitpa.jpg';
 // import logoImage from './assets/logo-catedra.png';
 
 export const SITE = {
-  website: 'https://scholar-lite-demo.netlify.app/', // Replace with your actual deployed URL
-  author: 'Scholar-Lite Team',
+  website: 'http://thin5g.es',
+  author: 'CatedraThin5G',
   description: 'A lightweight, modern static website template for academic labs and scholars.',
-  title: 'Scholar-Lite',
-  ogImage: 'GITPA.png',
+  title: 'CatedraThin5G',
+  ogImage: 'footer/GITPA.png',
   lightAndDarkMode: true,
   postPerPage: 3,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
@@ -14,16 +13,16 @@ export const SITE = {
   // Lab Info
   labName: 'CatedraThin5G',
   university: 'Uniovi',
-  logo: '/logoCatedra.svg', // Logo path
-  avatar: '/assets/logo-real.svg', // Avatar for SEO/Schema
-  email: 'thin5g@uniovi.es', // Contact email for Join Us page
+  logo: '/footer/logoCatedra.svg',
+  avatar: '/footer/logoCatedra.svg',
+  email: 'thin5g@uniovi.es',
 
   // Hero Section (Home Page) - Main content does not need to be translated for 8 languages by default
   hero: {
     title: 'Driving the 5G Future & Digital Innovation.',
     subtitle: 'The Open Laboratory for 5G Research, Education, and Technology Transfer in Asturias.',
     action: 'Discover Our Work', // Optional call to action text
-    image: heroImage, // Hero image path
+    image: '/assets/gitpa.jpg', // Hero image path
   },
 
   // Navigation
@@ -61,9 +60,17 @@ export const LOGO_IMAGE = {
 
 export const SOCIALS = [
   {
-    link: 'https://github.com/fjd2004711/scholar-lite',
+    link: 'https://github.com/CatedraTHIN5G',
     active: true,
   },
+  {
+    link: 'https://www.linkedin.com/in/catedra-thin5g/?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAADrrs8wBFMD6YwkTsoUJA2-el55eYCtVCPg',
+    active: true,
+  },
+  {
+    link: 'https://www.instagram.com/openlab5g/?hl=es',
+    active: true,
+  }
 ];
 
 // Default language configuration

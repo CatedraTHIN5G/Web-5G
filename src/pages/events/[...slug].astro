@@ -61,9 +61,7 @@ const { Content } = await render(item);
           <div class="w-full h-64 sm:h-96 rounded-2xl overflow-hidden bg-gray-100 mb-8">
             <img
               src={
-                typeof item.data.cover === "string"
-                  ? item.data.cover
-                  : item.data.cover.src
+                item.data.cover
               }
               alt={item.data.title}
               class="w-full h-full object-cover"

@@ -70,8 +70,8 @@ export const ui = {
     'events.sidebar.linkedinDesc': 'Stay up to date with our latest research and activities on LinkedIn.',
     'events.sidebar.connect': 'Connect on LinkedIn',
     'events.sidebar.upcoming': 'Upcoming Events',
-    'events.sidebar.tbd': 'Date to be confirmed',
-    'events.sidebar.scienceWeek': 'Science Week',
+    'events.sidebar.tbd': 'May 21',
+    'events.sidebar.scienceWeek': 'Science Fair',
     'events.sidebar.scienceWeekDesc': 'Workshops, educational itineraries, and outreach talks on 5G/6G and innovation.',
 
     'research.subtitle': 'Our lab explores the frontiers of artificial intelligence, with a focus on computer vision and machine learning.',
@@ -188,7 +188,7 @@ export const ui = {
 
     'team.support': 'Research Support',
     'role.pi': 'Principal Investigator',
-    'role.professor': 'Catedrático',
+    'role.professor': 'Professor',
     'role.associate': 'Associate Professor',
     'role.assistant': 'Assistant Professor',
     'role.postdoc': 'Postdoc',
@@ -293,8 +293,8 @@ export const ui = {
     'events.sidebar.linkedinDesc': 'Mantente al día con nuestras últimas investigaciones y actividades en LinkedIn.',
     'events.sidebar.connect': 'Conectar en LinkedIn',
     'events.sidebar.upcoming': 'Próximos Eventos',
-    'events.sidebar.tbd': 'Fecha por confirmar',
-    'events.sidebar.scienceWeek': 'Semana de la Ciencia',
+    'events.sidebar.tbd': '21 de mayo',
+    'events.sidebar.scienceWeek': 'Feria de la Ciencia',
     'events.sidebar.scienceWeekDesc': 'Talleres, itinerarios educativos y charlas de divulgación sobre 5G/6G e innovación.',
 
     'research.subtitle': 'Nuestro laboratorio explora las fronteras de la inteligencia artificial, con un enfoque en la visión por computadora y el aprendizaje automático.',

@@ -14,7 +14,7 @@ const {
 } = Astro.props;
 
 // Safe fallback
-const safeImages = images && images.length > 0 ? images : ["/placeholder.svg"];
+const safeImages = images && images.length > 0 ? images : ["/footer/placeholder.svg"];
 // Unique ID to allow multiple carousels on one page without script conflicts
 const carouselId = `carousel-${Math.random().toString(36).substr(2, 9)}`;
 ---

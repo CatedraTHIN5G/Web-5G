@@ -119,7 +119,7 @@ const lang = getLangFromUrl(Astro.url);
             {project.data.cover && (
               <div class="h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <img
-                  src={project.data.cover.src}
+                  src={project.data.cover}
                   alt={project.data.title}
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -358,3 +358,4 @@ const lang = getLangFromUrl(Astro.url);
     </script>
   </div>
 </Layout>
+

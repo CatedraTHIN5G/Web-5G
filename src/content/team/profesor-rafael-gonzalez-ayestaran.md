@@ -1,9 +1,9 @@
 ---
 name: "Rafael González Ayestarán"
 role: "Director"
-title: ["Director", "Doctor", "Professor"]
+title: ["Director", "Professor"]
 status: "active"
-avatar: "../../assets/rafael-gonzalez.jpg"
+avatar: "/assets/rafael-gonzalez.jpg"
 bio: "Principal Investigator of the THIN5G Chair."
 email: "thin5g@uniovi.es"
 linkedin: "https://www.linkedin.com/in/rayestaran/"

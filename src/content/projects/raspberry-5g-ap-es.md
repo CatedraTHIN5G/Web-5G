@@ -6,8 +6,6 @@ summary_es: "Configuración de una Raspberry Pi 4 para dar acceso a Internet usa
 tags: ["5G", "Raspberry Pi", "IoT", "Networking", "Linux"]
 tags_es: ["5G", "Raspberry Pi", "IoT", "Redes", "Linux"]
 date: 2024-02-01
-docUrl: "/assets/docs/THIN5G MODULO 5G RASPBERRY PI.pdf"
-codeUrl: "/assets/code/raspberry-5g-setup.sh"
 team: ["estudiante-daniel-solares-ardisana"]
 ---
 

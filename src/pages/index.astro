@@ -42,7 +42,7 @@ try {
 
 // Fallback if no images found
 if (carouselImages.length === 0) {
-  carouselImages = ["/GITPA.png"];
+  carouselImages = ["/footer/GITPA.png"];
 }
 ---
 
@@ -136,7 +136,7 @@ if (carouselImages.length === 0) {
               {project.data.cover && (
                 <div class="h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
                   <img
-                    src={project.data.cover.src}
+                    src={project.data.cover}
                     alt={project.data.title}
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -226,9 +226,7 @@ if (carouselImages.length === 0) {
                   <div class="block h-48 overflow-hidden">
                     <img
                       src={
-                        typeof item.data.cover === "string"
-                          ? item.data.cover
-                          : item.data.cover.src
+                        item.data.cover
                       }
                       alt={item.data.title}
                       class="w-full h-full object-cover"
@@ -264,3 +262,4 @@ if (carouselImages.length === 0) {
     </div>
   </section>
 </Layout>
+

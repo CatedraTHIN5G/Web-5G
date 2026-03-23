@@ -59,7 +59,7 @@ const news = (await getCollection("news")).sort(
                       {item.data.cover && (
                         <div class="rounded-lg overflow-hidden h-32 w-full">
                            <img 
-                            src={typeof item.data.cover === "string" ? item.data.cover : item.data.cover.src}
+                            src={item.data.cover}
                             alt={item.data.title} 
                             class="w-full h-full object-cover transform hover:scale-110 transition-duration-500"
                            />
@@ -129,14 +129,11 @@ const news = (await getCollection("news")).sort(
             <div class="space-y-6">
               <div class="group">
                   <span class="inline-block px-2 py-1 rounded text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 mb-2" data-i18n-key="events.sidebar.tbd">
-                    Fecha por confirmar
+                    21 de mayo
                   </span>
                   <h4 class="text-base font-bold text-gray-900 dark:text-gray-100 group-hover:text-amber-600 transition-colors mb-2" data-i18n-key="events.sidebar.scienceWeek">
-                    Semana de la Ciencia
+                    Feria de la Ciencia
                   </h4>
-                  <p class="text-sm text-gray-600 dark:text-gray-400" data-i18n-key="events.sidebar.scienceWeekDesc">
-                    Talleres, itinerarios educativos y charlas de divulgación sobre 5G e innovación.
-                  </p>
               </div>
             </div>
         </div>
@@ -145,3 +142,4 @@ const news = (await getCollection("news")).sort(
     </div>
   </div>
 </Layout>
+

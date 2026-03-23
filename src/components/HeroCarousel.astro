@@ -8,7 +8,7 @@ interface Props {
 
 const { images } = Astro.props;
 // If no images provided, use a placeholder or fail gracefully
-const safeImages = images && images.length > 0 ? images : ["/placeholder.svg"];
+const safeImages = images && images.length > 0 ? images : ["/footer/placeholder.svg"];
 ---
 
 <div class="carousel-container absolute inset-0 z-0 overflow-hidden">

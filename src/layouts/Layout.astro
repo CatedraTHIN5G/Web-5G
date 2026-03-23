@@ -4,7 +4,6 @@ import Header from "../components/Header.astro";
 import { SITE } from "../config";
 import { ui, defaultLang } from "../i18n/ui";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
-import logoUniovi from "../assets/logo-uniovi.jpg";
 
 interface Props {
   title?: string;
@@ -16,20 +15,8 @@ const pageTitle = title
   ? `${title} | ${SITE.labName}`
   : `${SITE.labName} - ${SITE.university}`;
 
-// Define dynamic OG Image
-const currentPath = Astro.url.pathname.replace(/^\/|\/$/g, "");
-const ogSlug = currentPath === "" ? "index" : currentPath;
-const supportedOgPages = [
-  "index",
-  "projects",
-  "team",
-  "publications",
-  "news",
-  "join",
-  "events",
-];
-const finalOgSlug = supportedOgPages.includes(ogSlug) ? ogSlug : "index";
-const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
+// Use static OG Image fallback
+const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
 ---
 
 <!doctype html>
@@ -140,7 +127,7 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
                   class="opacity-100 hover:opacity-80 transition-opacity"
                 >
                   <img
-                    src="/logoCatedra_dark.svg"
+                    src="/footer/logoCatedra_dark.svg"
                     alt="Cátedra Thin5G"
                     class="h-14"
                   />
@@ -270,7 +257,7 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
               class="hover:opacity-80 transition-opacity"
             >
               <img
-                src="/PrincipadoDeAsturias.png"
+                src="/footer/PrincipadoDeAsturias.png"
                 alt="Gobierno del Principado de Asturias"
                 class="h-11 w-auto bg-white p-1 rounded-sm"
               />
@@ -284,7 +271,7 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
               class="hover:opacity-80 transition-opacity"
             >
               <img
-                src="/GITPA.png"
+                src="/footer/GITPA.png"
                 alt="GITPA"
                 class="h-12 w-auto bg-white p-1 rounded-sm"
               />
@@ -298,7 +285,7 @@ const ogImage = new URL(`/og/${finalOgSlug}.png`, Astro.url);
               class="hover:opacity-80 transition-opacity"
             >
               <img
-                src={logoUniovi.src}
+                src="/assets/logo-uniovi.jpg"
                 alt="Universidad de Oviedo"
                 class="h-12 w-auto bg-white p-1 rounded-sm"
               />

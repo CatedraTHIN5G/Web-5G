@@ -28,10 +28,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run import-bibtex && astro build && pagefind --site dist",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import-bibtex": "node scripts/import-bibtex.js",
     "lint": "astro check"
   },
   "dependencies": {
@@ -51,8 +50,5 @@
     "slugify": "^1.6.6",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
-  },
-  "devDependencies": {
-    "pagefind": "^1.4.0"
   }
 }
