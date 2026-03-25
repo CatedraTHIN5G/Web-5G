@@ -7,9 +7,6 @@ import { Calendar, ArrowRight } from "lucide-react";
 const events = (await getCollection("events")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-const news = (await getCollection("news")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
 ---
 
 <Layout title="Events">

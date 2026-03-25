@@ -1,7 +1,7 @@
 // import logoImage from './assets/logo-catedra.png';
 
 export const SITE = {
-  website: 'http://thin5g.es',
+  website: 'https://thin5g.es',
   author: 'CatedraThin5G',
   description: 'A lightweight, modern static website template for academic labs and scholars.',
   title: 'CatedraThin5G',
