@@ -1,9 +1,11 @@
 ---
 name: "Daniel Solares Ardisana"
-role: "Student"
+role: "Researcher"
+title: ["Project Researcher"]
 avatar: "/assets/default-avatar.png"
-status: "inactive"
-weight: 7
+status: "active"
+weight: 10
 linkedin: "https://www.linkedin.com/in/dsardisana/"
+email: "thin5g@uniovi.es"
 ---
 

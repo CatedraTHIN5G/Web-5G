@@ -1,8 +1,8 @@
 ---
 name: "Daniel Menéndez González"
-role: "Student"
+role: "Master Student"
 avatar: "/assets/default-avatar.png"
 linkedin: "https://www.linkedin.com/in/danielmenendezgonzalez/"
 status: "active"
-weight: 100
+weight: 10
 ---

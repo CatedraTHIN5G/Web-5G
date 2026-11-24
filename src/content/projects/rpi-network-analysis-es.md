@@ -1,6 +1,6 @@
 ---
-title: "Análisis Red Raspberry Pi"
-title_es: "Análisis Red Raspberry Pi"
+title: "Raspberry Pi Network Monitoring & Diagnostics"
+title_es: "Monitorización y Diagnóstico de Red en Raspberry Pi"
 summary: "Python scripts for monitoring network interfaces, retrieving IP/SSID, tracking connected devices, and measuring signal strength on Raspberry Pi."
 summary_es: "Scripts de Python para monitorizar interfaces de red, obtener IP/SSID, rastrear dispositivos conectados y medir la intensidad de la señal en Raspberry Pi."
 tags: ["Raspberry Pi", "Python", "Networking", "Monitoring", "WiFi"]

@@ -1,5 +1,5 @@
 ---
-name: "Alvaro Pendas Recondo"
+name: "Alvaro Pendás Recondo"
 role: "Postdoc"
 title: ["Doctor"]
 status: "active"

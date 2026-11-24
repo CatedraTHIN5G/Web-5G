@@ -1,10 +1,9 @@
 ---
 name: "Inés Pérez Castelo"
-role: "PhD Student"
-title: ["Project Researcher"]
+role: "Student"
 avatar: "/assets/default-avatar.png"
 weight: 60
-status: "active"
+status: "inactive"
 linkedin: "https://www.linkedin.com/in/in%C3%A9s-p%C3%A9rez-castelo-b327932aa/"
 ---
 

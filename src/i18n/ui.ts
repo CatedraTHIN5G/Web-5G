@@ -145,6 +145,7 @@ export const ui = {
     // Extended About Section
     'about.pageTitle': 'The THIN5G Chair',
     'about.introSubtitle': 'Enabling Technologies, Innovation and 5G',
+    'about.since2021': 'Since 2021',
     'about.originText': 'The THIN5G Chair (Enabling Technologies, Innovation and 5G) was established in 2021 through an initiative by the Principality of Asturias and the University of Oviedo. Currently funded by GITPA, it leads the vanguard in connectivity, driving technological transformation and future talent in our region.',
     'about.visionTitle': 'Our Vision',
     'about.visionText': 'To become the premier open laboratory where academia and the private sector generate scientific knowledge and transfer potential applications key to the future of our Autonomous Community, leveraging the 5G deployment.',
@@ -367,6 +368,7 @@ export const ui = {
     // Extended About Section
     'about.pageTitle': 'La Cátedra THIN5G',
     'about.introSubtitle': 'Tecnologías Habilitantes, Innovación y 5G',
+    'about.since2021': 'Desde 2021',
     'about.originText': 'La Cátedra THIN5G (Tecnologías Habilitantes, Innovación y 5G) nace en 2021 de la iniciativa del Principado de Asturias y la Universidad de Oviedo. Actualmente financiada por GITPA, lidera la vanguardia en conectividad para impulsar la transformación tecnológica y el talento del futuro en nuestra región.',
     'about.visionTitle': 'Nuestra Vocación',
     'about.visionText': 'Convertirse en el primer laboratorio abierto donde academia y sector privado generen conocimiento científico y transfieran potenciales aplicaciones clave para el futuro de nuestra Comunidad Autónoma, aprovechando el despliegue 5G.',
@@ -434,7 +436,7 @@ export const ui = {
     'role.doctor': 'Doctor',
     'role.student': 'Estudiante',
     'role.researcher': 'Investigador',
-    'role.project_researcher': 'Contratada',
+    'role.project_researcher': 'Contratado',
     'team.noMembers': 'No se encontraron miembros del equipo.',
 
     'team.filter.all': 'Todos',
