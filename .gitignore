@@ -39,3 +39,10 @@ coverage/
 
 # Vercel
 .vercel/
+
+# Local design tooling
+/.impeccable/
+/DESIGN.md
+/PRODUCT.md
+/design.md
+/product.md

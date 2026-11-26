@@ -44,12 +44,8 @@ if (carouselImages.length === 0) {
 
 <Layout title="About the Chair | Cátedra Thin5G">
     <!-- Hero Section -->
-    <div class="relative bg-slate-900 text-white py-24 overflow-hidden">
-        <div
-            class="absolute inset-0 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:20px_20px] opacity-10"
-        >
-        </div>
-        <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+    <div class="page-banner">
+        <div class="site-frame page-masthead">
             <h1
                 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6"
                 data-i18n-key="about.pageTitle"
@@ -69,20 +65,17 @@ if (carouselImages.length === 0) {
     <div class="max-w-5xl mx-auto px-4 py-20 dark:text-gray-300">
         <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
             <div>
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-bold text-sm mb-6 border border-blue-100 dark:border-blue-800 uppercase tracking-wider"
-                    data-i18n-key="about.since2021"
-                >
-                    Desde 2021
-                </div>
                 <h2
-                    class="text-3xl font-bold text-gray-900 dark:text-white mb-6"
+                    class="text-3xl font-bold text-gray-900 dark:text-white mb-2"
                     data-i18n-key="about.pageTitle"
                 >
                     La Cátedra THIN5G
                 </h2>
+                <p class="about-established">
+                    <time datetime="2021" data-i18n-key="about.since2021">Desde 2021</time>
+                </p>
                 <p
-                    class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-justify"
+                    class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6"
                     data-i18n-key="about.originText"
                 >
                     La Cátedra THIN5G (Tecnologías Habilitantes, Innovación y
@@ -93,7 +86,7 @@ if (carouselImages.length === 0) {
                     nuestra región.
                 </p>
                 <div
-                    class="bg-gray-50 dark:bg-slate-900 border-l-4 border-blue-600 p-6 rounded-r-lg"
+                    class="page-note p-6"
                 >
                     <h3
                         class="font-bold text-gray-900 dark:text-white mb-2"
@@ -102,7 +95,7 @@ if (carouselImages.length === 0) {
                         Nuestra Vocación
                     </h3>
                     <p
-                        class="text-gray-700 dark:text-gray-300 italic text-justify"
+                        class="text-gray-700 dark:text-gray-300 italic"
                         data-i18n-key="about.visionText"
                     >
                         Convertirse en el primer laboratorio abierto donde
@@ -289,7 +282,7 @@ if (carouselImages.length === 0) {
                 <div class="w-16 h-1.5 bg-blue-500 mb-10 rounded-full"></div>
 
                 <p
-                    class="text-slate-300 text-lg mb-10 leading-relaxed text-justify"
+                    class="text-slate-300 text-lg mb-10 leading-relaxed"
                     data-i18n-key="about.researchDesc"
                 >
                     Fortalecemos la capacidad tecnológica y la colaboración
@@ -304,7 +297,7 @@ if (carouselImages.length === 0) {
                             1
                         </div>
                         <span
-                            class="text-slate-200 text-lg py-1 text-justify"
+                            class="text-slate-200 text-lg py-1"
                             data-i18n-key="about.resA"
                             >Desarrollo de líneas conjuntas entre diferentes
                             departamentos, Universidades y empresas.</span
@@ -317,7 +310,7 @@ if (carouselImages.length === 0) {
                             2
                         </div>
                         <span
-                            class="text-slate-200 text-lg py-1 text-justify"
+                            class="text-slate-200 text-lg py-1"
                             data-i18n-key="about.resB"
                             >Cooperación para lograr proyectos regionales,
                             nacionales e internacionales.</span
@@ -348,7 +341,7 @@ if (carouselImages.length === 0) {
                 <div class="w-16 h-1.5 bg-purple-500 mb-10 rounded-full"></div>
 
                 <p
-                    class="text-gray-600 dark:text-gray-400 text-lg mb-10 leading-relaxed text-justify"
+                    class="text-gray-600 dark:text-gray-400 text-lg mb-10 leading-relaxed"
                     data-i18n-key="about.transferDesc"
                 >
                     Posicionamos la Cátedra como un catalizador de progreso
@@ -363,7 +356,7 @@ if (carouselImages.length === 0) {
                             A
                         </div>
                         <div
-                            class="text-gray-700 dark:text-gray-300 text-lg py-1 text-justify"
+                            class="text-gray-700 dark:text-gray-300 text-lg py-1"
                         >
                             <span data-i18n-key="about.transA"
                                 >Fomentar un espacio de aprendizaje y validación
@@ -379,7 +372,7 @@ if (carouselImages.length === 0) {
                             B
                         </div>
                         <div
-                            class="text-gray-700 dark:text-gray-300 text-lg py-1 text-justify"
+                            class="text-gray-700 dark:text-gray-300 text-lg py-1"
                         >
                             <span data-i18n-key="about.transB"
                                 >Convertir el conocimiento en innovación

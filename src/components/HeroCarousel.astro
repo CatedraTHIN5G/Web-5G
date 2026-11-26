@@ -1,58 +1,130 @@
 ---
 import { withBase } from "../utils/urls";
-import { Image } from "astro:assets";
+import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 
-// Props: accepts an array of image paths
 interface Props {
-    images: string[];
+  images: string[];
 }
 
 const { images } = Astro.props;
-// If no images provided, use a placeholder or fail gracefully
-const safeImages = images && images.length > 0 ? images : ["/footer/placeholder.svg"];
+const photos = (images.length ? images : ["/footer/placeholder.svg"]).map(withBase);
+const formatNumber = (number: number) => String(number).padStart(2, "0");
 ---
 
-<div class="carousel-container absolute inset-0 z-0 overflow-hidden">
+<div class="lab-gallery" data-lab-gallery>
+  <div class="lab-gallery-photos">
     {
-        safeImages.map((img, index) => (
-            <div
-                class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
-                data-index={index}
-            >
-                <img
-                    src={withBase(img)}
-                    alt={`Hero Slide ${index + 1}`}
-                    class="w-full h-full object-cover"
-                />
-                {/* Dark Overlay inside slide to ensure it covers the image */}
-                <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
-            </div>
-        ))
+      photos.map((photo, index) => (
+        <img
+          src={index === 0 ? photo : undefined}
+          data-src={index === 0 ? undefined : photo}
+          alt={index === 0 ? "Equipment on display at the THIN5G Open Lab" : `THIN5G Open Lab, ${index + 1}`}
+          aria-hidden={index === 0 ? "false" : "true"}
+          data-visible={index === 0 ? "true" : "false"}
+          fetchpriority={index === 0 ? "high" : undefined}
+          decoding="async"
+        />
+      ))
     }
+  </div>
+  {photos.length > 1 && (
+    <div class="lab-gallery-controls" hidden>
+      <p class="lab-gallery-count" aria-hidden="true">
+        <span data-gallery-count>{formatNumber(1)}</span> / {formatNumber(photos.length)}
+      </p>
+      <div class="lab-gallery-buttons">
+        <button type="button" data-gallery-previous>
+          <ArrowLeft aria-hidden="true" size={20} />
+          <span class="sr-only i18n-content-en">Previous photo</span>
+          <span class="sr-only i18n-content-es">Foto anterior</span>
+        </button>
+        <button type="button" data-gallery-next>
+          <ArrowRight aria-hidden="true" size={20} />
+          <span class="sr-only i18n-content-en">Next photo</span>
+          <span class="sr-only i18n-content-es">Siguiente foto</span>
+        </button>
+        <button type="button" data-gallery-pause aria-pressed="false">
+          <Pause aria-hidden="true" size={17} className="gallery-pause-icon" />
+          <Play aria-hidden="true" size={17} className="gallery-play-icon" />
+          <span class="sr-only i18n-content-en">Pause slideshow</span>
+          <span class="sr-only i18n-content-es">Pausar presentación</span>
+        </button>
+      </div>
+    </div>
+  )}
 </div>
 
 <script>
-    function startCarousel() {
-        const slides = document.querySelectorAll(".carousel-slide");
-        if (slides.length <= 1) return;
+  const gallery = document.querySelector<HTMLElement>("[data-lab-gallery]");
+  const controls = gallery?.querySelector<HTMLElement>(".lab-gallery-controls");
 
-        let currentIndex = 0;
-        const intervalTime = 5000; // 5 seconds
+  if (gallery && controls) {
+    const photos = [...gallery.querySelectorAll<HTMLImageElement>(".lab-gallery-photos img")];
+    const count = controls.querySelector<HTMLElement>("[data-gallery-count]");
+    const pause = controls.querySelector<HTMLButtonElement>("[data-gallery-pause]");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let current = 0;
+    let requested = 0;
+    let playing = !reducedMotion.matches;
+    let timer: number | undefined;
 
-        setInterval(() => {
-            // Current slide fade out
-            slides[currentIndex].classList.remove("opacity-100");
-            slides[currentIndex].classList.add("opacity-0");
+    async function showPhoto(index: number) {
+      requested = (index + photos.length) % photos.length;
+      const next = requested;
+      const photo = photos[next];
+      if (photo.dataset.src) {
+        photo.src = photo.dataset.src;
+        delete photo.dataset.src;
+      }
 
-            // Next slide
-            currentIndex = (currentIndex + 1) % slides.length;
+      try {
+        await photo.decode();
+      } catch {
+        return;
+      }
+      if (next !== requested) return;
 
-            // Next slide fade in
-            slides[currentIndex].classList.remove("opacity-0");
-            slides[currentIndex].classList.add("opacity-100");
-        }, intervalTime);
+      photos[current].dataset.visible = "false";
+      photos[current].setAttribute("aria-hidden", "true");
+      photo.dataset.visible = "true";
+      photo.setAttribute("aria-hidden", "false");
+      current = next;
+      if (count) count.textContent = String(current + 1).padStart(2, "0");
     }
 
-    // Run on load
-    document.addEventListener("DOMContentLoaded", startCarousel);
+    function stopTimer() {
+      window.clearInterval(timer);
+    }
+
+    function updateTimer() {
+      stopTimer();
+      pause?.setAttribute("aria-pressed", String(!playing));
+      if (playing && !document.hidden && !gallery?.matches(":hover, :focus-within")) {
+        timer = window.setInterval(() => void showPhoto(requested + 1), 6500);
+      }
+    }
+
+    controls.querySelector("[data-gallery-previous]")?.addEventListener("click", () => {
+      void showPhoto(requested - 1);
+    });
+    controls.querySelector("[data-gallery-next]")?.addEventListener("click", () => {
+      void showPhoto(requested + 1);
+    });
+    pause?.addEventListener("click", () => {
+      playing = !playing;
+      updateTimer();
+    });
+    reducedMotion.addEventListener("change", (event) => {
+      playing = !event.matches;
+      updateTimer();
+    });
+    gallery.addEventListener("pointerenter", stopTimer);
+    gallery.addEventListener("pointerleave", updateTimer);
+    gallery.addEventListener("focusin", stopTimer);
+    gallery.addEventListener("focusout", () => window.setTimeout(updateTimer));
+    document.addEventListener("visibilitychange", updateTimer);
+
+    controls.hidden = false;
+    updateTimer();
+  }
 </script>

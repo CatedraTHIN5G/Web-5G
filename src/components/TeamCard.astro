@@ -69,22 +69,14 @@ const badgeColors = [
 >
   <!-- Avatar Container -->
   <div
-    class="relative w-48 h-48 mb-4 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 group-hover:shadow-lg transition-shadow"
+    class="relative w-48 h-48 mb-4 index-entry overflow-hidden bg-gray-100 dark:bg-gray-800 group-hover:shadow-lg transition-shadow"
   >
     <!-- Status Badge -->
     {
       member.data.status && (
         <div
-          class={`absolute top-3 right-3 z-10 px-2 py-1 rounded-full text-xs font-bold text-white shadow-sm
-          ${
-            member.data.status === "active"
-              ? "bg-green-500"
-              : member.data.status === "inactive"
-                ? "bg-gray-500"
-                : member.data.status === "affiliate"
-                  ? "bg-blue-500"
-                  : "bg-gray-500"
-          }`}
+          class="team-member-status absolute top-3 right-3 z-10"
+          data-member-status={member.data.status}
           data-i18n-key={`team.filter.${member.data.status}`}
         >
           {member.data.status.charAt(0).toUpperCase() +

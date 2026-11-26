@@ -86,14 +86,14 @@ const isHome = Astro.url.pathname.replace(/\/$/, "") === withBase("/").slice(0, 
   </head>
   <body class="min-h-screen flex flex-col">
     <Header />
-    <main class="flex-grow" data-pagefind-body>
+    <main class="site-main flex-grow" data-pagefind-body>
       <slot />
     </main>
 
     <footer
-      class="bg-gray-900 border-t border-gray-800 text-gray-300 font-sans"
+      class="site-footer text-gray-300 font-sans"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="site-frame py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
           <!-- Col 1: Contact (Medialab style: clean info) -->
           <div>
@@ -227,10 +227,11 @@ const isHome = Astro.url.pathname.replace(/\/$/, "") === withBase("/").slice(0, 
 
           <!-- Col 3: Map (Fixed Embed) -->
           <div
-            class="w-full h-80 bg-gray-800 rounded-lg overflow-hidden border border-gray-700"
+            class="w-full h-80 bg-gray-800 overflow-hidden border border-gray-700"
           >
             <iframe
               src="https://maps.google.com/maps?q=Edificio+Polivalente,+Calle+Luis+Ortiz+Berrocal,+Gijón&t=&z=17&ie=UTF8&iwloc=&output=embed"
+              title="Mapa de la Cátedra THIN5G"
               width="100%"
               height="100%"
               style="border:0;"

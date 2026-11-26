@@ -2,10 +2,10 @@
 import { withBase } from "../utils/urls";
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowDownRight, ArrowRight } from "lucide-react";
 import HeroCarousel from "../components/HeroCarousel.astro";
 import { SITE } from "../config";
+import "../styles/home.css";
 
 // Fetch Highlight Projects
 const highlightIds = [
@@ -45,220 +45,102 @@ try {
 if (carouselImages.length === 0) {
   carouselImages = ["/footer/GITPA.png"];
 }
+
+const openingPhoto = "/Fotos/About/IMG20221006090001.jpg";
+if (carouselImages.includes(openingPhoto)) {
+  carouselImages = [openingPhoto, ...carouselImages.filter((image) => image !== openingPhoto)];
+}
 ---
 
 <Layout title="Home">
-  <!-- Hero Section -->
-  <section
-    class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden"
-  >
-    <!-- Background Image -->
-    <HeroCarousel images={carouselImages} />
-
-    <!-- Content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-      <div class="max-w-3xl">
-        <h1
-          class="text-5xl font-extrabold text-white sm:text-6xl md:text-7xl mb-6 drop-shadow-lg leading-tight"
-        >
-          <span class="block xl:inline" data-i18n-key="hero.title"
-            >{SITE.hero.title}</span
-          >
-        </h1>
-        <p
-          class="mt-4 text-xl text-gray-300 sm:max-w-2xl md:text-2xl drop-shadow-md"
-          data-i18n-key="hero.subtitle"
-        >
-          {SITE.hero.subtitle}
-        </p>
-        <div class="mt-10 flex gap-4">
-          <a
-            href={withBase("/projects")}
-            class="flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-full text-black bg-white hover:bg-gray-100 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
-            data-i18n-key="hero.viewPubs"
-          >
-            View Publications
-          </a>
-          <a
-            href={withBase("/team")}
-            class="flex items-center justify-center px-8 py-4 border-2 border-white/30 text-lg font-medium rounded-full text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
-            data-i18n-key="hero.meetTeam"
-          >
-            Meet the Team
-          </a>
-        </div>
+  <section class="home-hero site-frame" aria-labelledby="home-title">
+    <div class="home-hero-copy">
+      <h1 id="home-title" data-i18n-key="hero.title">{SITE.hero.title}</h1>
+      <p data-i18n-key="hero.subtitle">{SITE.hero.subtitle}</p>
+      <div class="home-actions">
+        <a href={withBase("/projects")} class="home-action home-action-primary">
+          <span data-i18n-key="hero.viewPubs">View Publications</span>
+          <ArrowDownRight aria-hidden="true" size={18} />
+        </a>
+        <a href={withBase("/team")} class="home-action">
+          <span data-i18n-key="hero.meetTeam">Meet the Team</span>
+          <ArrowRight aria-hidden="true" size={18} />
+        </a>
       </div>
     </div>
 
-    <!-- Scroll Indicator -->
-    <div
-      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50"
-    >
-      <svg
-        class="w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-      </svg>
+    <HeroCarousel images={carouselImages} />
+  </section>
+
+  <section class="home-section site-frame" aria-labelledby="featured-projects">
+    <div class="home-section-heading">
+      <h2 id="featured-projects" data-i18n-key="section.featuredProjects">Featured Projects</h2>
+      <a href={withBase("/projects")} class="index-link">
+        <span data-i18n-key="section.viewAll">View all</span>
+        <ArrowRight aria-hidden="true" size={18} />
+      </a>
+    </div>
+
+    <div class="featured-projects">
+      {
+        featuredProjects.map((project) => (
+          <article class="featured-project">
+            {project.data.cover && (
+              <div class="project-photo">
+                <img src={withBase(project.data.cover)} alt={project.data.title} loading="lazy" />
+              </div>
+            )}
+            <h3 data-i18n-en={project.data.title} data-i18n-es={project.data.title_es}>
+              {project.data.title}
+            </h3>
+            <div class="project-tags">
+              {project.data.tags?.slice(0, 2).map((tag, index) => (
+                <span data-i18n-en={tag} data-i18n-es={project.data.tags_es?.[index]}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <p data-i18n-en={project.data.summary} data-i18n-es={project.data.summary_es}>
+              {project.data.summary}
+            </p>
+          </article>
+        ))
+      }
     </div>
   </section>
 
-  <!-- Featured Projects -->
-  <section class="py-16 bg-white dark:bg-black transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-end mb-8">
-        <h2
-          class="text-3xl font-bold text-gray-900 dark:text-gray-100"
-          data-i18n-key="section.featuredProjects"
-        >
-          Featured Projects
-        </h2>
-        <a
-          href={withBase("/projects")}
-          class="text-black hover:text-gray-600 dark:text-blue-400 dark:hover:text-blue-300 font-medium flex items-center gap-1 group"
-        >
+  <section class="home-activities" aria-labelledby="latest-activities">
+    <div class="home-section site-frame">
+      <div class="home-section-heading">
+        <h2 id="latest-activities" data-i18n-key="section.latestNews">Latest Activities</h2>
+        <a href={withBase("/events")} class="index-link">
           <span data-i18n-key="section.viewAll">View all</span>
-          <ArrowRight
-            className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-          />
+          <ArrowRight aria-hidden="true" size={18} />
         </a>
       </div>
 
-      <div class="grid gap-8 md:grid-cols-3">
+      <div class="home-event-list">
         {
-          featuredProjects.map((project) => (
-            <div class="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all">
-              {project.data.cover && (
-                <div class="h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
-                  <img
-                    src={withBase(project.data.cover)}
-                    alt={project.data.title}
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
+          events.map((item) => (
+            <article class="home-event">
+              <time datetime={item.data.date.toISOString()}>
+                {item.data.date.toLocaleDateString()}
+              </time>
+              {item.data.cover && (
+                <img src={withBase(item.data.cover)} alt={item.data.title} loading="lazy" />
               )}
-              {!project.data.cover && (
-                <div class="h-48 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center">
-                  <svg
-                    class="w-12 h-12 text-blue-300 dark:text-blue-700/50"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-                  </svg>
-                </div>
-              )}
-              <div class="p-6">
-                <div class="flex flex-wrap gap-2 mb-3">
-                  {project.data.tags?.slice(0, 2).map((tag, i) => (
-                    <span
-                      class="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800"
-                      data-i18n-en={tag}
-                      data-i18n-es={project.data.tags_es?.[i]}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 class="text-xl font-bold text-black dark:text-white group-hover:text-gray-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-2">
-                  <span
-                    data-i18n-en={project.data.title}
-                    data-i18n-es={project.data.title_es}
-                  >
-                    {project.data.title}
-                  </span>
+              <div class="home-event-copy">
+                <h3 data-i18n-en={item.data.title_en} data-i18n-es={item.data.title}>
+                  {item.data.title}
                 </h3>
-                <p
-                  class="text-gray-600 dark:text-gray-300 line-clamp-3 text-sm"
-                  data-i18n-en={project.data.summary}
-                  data-i18n-es={project.data.summary_es}
-                >
-                  {project.data.summary}
+                <p data-i18n-en={item.data.description_en} data-i18n-es={item.data.description}>
+                  {item.data.description}
                 </p>
               </div>
-            </div>
+            </article>
           ))
         }
       </div>
     </div>
   </section>
-
-  <!-- Latest Activities -->
-  <section class="py-16 bg-white dark:bg-black transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-end mb-8">
-        <h2
-          class="text-3xl font-bold text-gray-900 dark:text-gray-100"
-          data-i18n-key="section.latestNews"
-        >
-          Latest Activities
-        </h2>
-        <a
-          href={withBase("/events")}
-          class="text-black hover:text-gray-600 dark:text-blue-400 dark:hover:text-blue-300 font-medium flex items-center gap-1 group"
-        >
-          <span data-i18n-key="section.viewAll">View all</span>
-          <ArrowRight
-            className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-          />
-        </a>
-      </div>
-
-      <div class="grid gap-8 md:grid-cols-3">
-        {
-          events.map((item) => {
-            const link = `/events/${item.id.replace(/\.[^/.]+$/, "")}`;
-            return (
-              <div class="group bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden shadow-sm hover:shadow-md transition-all">
-                {item.data.cover && (
-                  <div class="block h-48 overflow-hidden">
-                    <img
-                      src={withBase(item.data.cover)}
-                      alt={item.data.title}
-                      class="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="text-sm text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {item.data.date.toLocaleDateString()}
-                  </div>
-                  <h3 class="text-xl font-bold text-black dark:text-white mb-2 line-clamp-2">
-                    <span
-                      data-i18n-en={item.data.title_en}
-                      data-i18n-es={item.data.title}
-                    >
-                      {item.data.title}
-                    </span>
-                  </h3>
-                  <p
-                    class="text-gray-600 dark:text-gray-300 line-clamp-3 text-sm"
-                    data-i18n-en={item.data.description_en}
-                    data-i18n-es={item.data.description}
-                  >
-                    {item.data.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
-    </div>
-  </section>
 </Layout>
-

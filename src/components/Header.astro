@@ -1,184 +1,104 @@
 ---
 import { withBase } from "../utils/urls";
 import { SITE, LOGO_IMAGE } from "../config";
-import {
-  Menu,
-  X,
-  Globe,
-  ChevronDown,
-  Check,
-  Moon,
-  Sun,
-  Home,
-  BookOpen,
-  Trophy,
-  Users,
-  Calendar,
-  UserPlus,
-  Sparkles,
-  Search,
-  Lightbulb,
-  Info,
-} from "lucide-react";
-
-import { ui, defaultLang, languages } from "../i18n/ui";
+import { ChevronDown, Menu, Moon, Search, Sun, X } from "lucide-react";
+import { languages } from "../i18n/ui";
 
 const { nav, i18n, customPages } = SITE;
-
-const iconMap: Record<string, any> = {
-  home: Home,
-  about: Info,
-  // research: BookOpen,
-  projects: Trophy,
-  team: Users,
-  events: Calendar,
-  search: Search,
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const home = withBase("/").replace(/\/$/, "") || "/";
+const isCurrent = (href: string) => {
+  const target = withBase(href).replace(/\/$/, "") || "/";
+  return current === target || (target !== home && current.startsWith(target + "/"));
 };
-
-// Helper to get icon
-const getIcon = (key: string) => iconMap[key] || Sparkles;
 ---
 
-<header
-  class="sticky top-0 z-50 w-full bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300"
->
-  <div class="w-full max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <!-- Logo & Name -->
-      <div class="flex items-center gap-3">
-        <a href={withBase("/")} class="flex items-center gap-2 group">
-          {
-            LOGO_IMAGE.enable && SITE.logo && (
-              <>
-                <img
-                  src={withBase(SITE.logo)}
-                  alt="Logo"
-                  class="h-10 w-auto object-contain dark:hidden"
-                />
-                <img
-                  src={withBase("/footer/logoCatedra_dark.svg")}
-                  alt="Logo Dark"
-                  class="h-10 w-auto object-contain hidden dark:block"
-                />
-              </>
-            )
-          }
-        </a>
-      </div>
+<header class="site-header sticky top-0 z-50 w-full">
+  <div class="site-frame site-header-row">
+    <a href={withBase("/")} class="site-header-brand" aria-label="Cátedra THIN5G">
+      {
+        LOGO_IMAGE.enable && SITE.logo && (
+          <>
+            <img src={withBase(SITE.logo)} alt="Logo" class="w-auto object-contain dark:hidden" />
+            <img src={withBase("/footer/logoCatedra_dark.svg")} alt="Logo Dark" class="w-auto object-contain hidden dark:block" />
+          </>
+        )
+      }
+    </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex gap-6 items-center">
-        {
-          nav.map((item) => {
-            if (item.key === "search") {
-              return (
-                <a
-                  href={withBase(item.link)}
-                  class="p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-full transition-colors"
-                  aria-label={item.text}
-                >
-                  <Search className="w-5 h-5" />
-                </a>
-              );
-            }
-            return (
-              <a
-                href={withBase(item.link)}
-                class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-blue-400 transition-colors"
-                data-i18n-key={`nav.${item.key}`}
-              >
-                {item.text}
-              </a>
-            );
-          })
-        }
+    <nav class="site-nav hidden lg:flex items-center">
+      {
+        nav.map((item) =>
+          item.key === "search" ? (
+            <a href={withBase(item.link)} class="site-header-button" aria-label={item.text}>
+              <Search aria-hidden="true" size={20} />
+            </a>
+          ) : (
+            <a
+              href={withBase(item.link)}
+              class="site-nav-link"
+              aria-current={isCurrent(item.link) ? "page" : undefined}
+              data-i18n-key={`nav.${item.key}`}
+            >
+              {item.text}
+            </a>
+          ),
+        )
+      }
+      {
+        customPages?.map((item) => (
+          <a
+            href={withBase(item.link)}
+            class="site-nav-link"
+            aria-current={isCurrent(item.link) ? "page" : undefined}
+            data-i18n-key={item.key}
+          >
+            {item.text}
+          </a>
+        ))
+      }
+      {
+        i18n.enabled && (
+          <div class="site-languages">
+            <button type="button" class="lang-option-toggle" data-lang="es" data-active="false" aria-label="Español">
+              <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="20" alt="España" />
+              <span>ES</span>
+            </button>
+            <button type="button" class="lang-option-toggle" data-lang="en" data-active="true" aria-label="English">
+              <img src="https://flagcdn.com/w40/gb.png" srcset="https://flagcdn.com/w80/gb.png 2x" width="20" alt="United Kingdom" />
+              <span>EN</span>
+            </button>
+          </div>
+        )
+      }
+    </nav>
 
-        <!-- Custom Pages -->
-        {
-          customPages &&
-            customPages.map((item) => (
-              <a
-                href={withBase(item.link)}
-                class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
-                data-i18n-key={item.key}
-              >
-                {item.text}
-              </a>
-            ))
-        }
-
-        {
-          i18n.enabled && (
-            <div class="flex items-center gap-4 ml-4 border-l border-gray-200 pl-4">
-              <button
-                class="lang-option-toggle flex items-center gap-1.5 hover:scale-105 transition-transform opacity-50 data-[active=true]:opacity-100 data-[active=true]:scale-105"
-                data-lang="es"
-                data-active="false"
-                aria-label="Español"
-              >
-                <img
-                  src="https://flagcdn.com/w40/es.png"
-                  srcset="https://flagcdn.com/w80/es.png 2x"
-                  width="20"
-                  alt="España"
-                  class="rounded-sm shadow-sm"
-                />
-                <span class="text-xs font-bold text-gray-700">ES</span>
-              </button>
-              <button
-                class="lang-option-toggle flex items-center gap-1.5 hover:scale-105 transition-transform opacity-50 data-[active=true]:opacity-100 data-[active=true]:scale-105"
-                data-lang="en"
-                data-active="false"
-                aria-label="English"
-              >
-                <img
-                  src="https://flagcdn.com/w40/gb.png"
-                  srcset="https://flagcdn.com/w80/gb.png 2x"
-                  width="20"
-                  alt="United Kingdom"
-                  class="rounded-sm shadow-sm"
-                />
-                <span class="text-xs font-bold text-gray-700">EN</span>
-              </button>
-            </div>
-          )
-        }
-
-        <!-- Dark Mode Toggle -->
-        <button
-          id="theme-toggle"
-          class="ml-4 p-2 text-gray-500 hover:text-yellow-500 dark:text-gray-400 dark:hover:text-yellow-400 transition-all bulb-anim-switch"
-          aria-label="Toggle dark mode"
-        >
-          <Lightbulb className="w-6 h-6 bulb-icon" />
-        </button>
-      </nav>
-
-      <!-- Mobile Menu Button -->
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden p-2 -mr-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors z-[80] relative"
-        aria-label="Toggle menu"
-        aria-controls="mobile-menu"
-        aria-expanded="false"
-        onclick="window.toggleMobileMenu(event)"
-      >
-        <span class="icon-menu block transition-transform duration-300">
-          <Menu className="w-6 h-6" />
-        </span>
-        <span
-          class="icon-close hidden absolute inset-0 flex items-center justify-center transition-transform duration-300 rotate-90"
-        >
-          <X className="w-6 h-6" />
-        </span>
-      </button>
-    </div>
+    <button
+      type="button"
+      id="theme-toggle"
+      class="site-header-button"
+      aria-label="Toggle dark mode"
+      aria-pressed="false"
+    >
+      <Moon aria-hidden="true" size={21} className="theme-moon" />
+      <Sun aria-hidden="true" size={21} className="theme-sun" />
+    </button>
+    <button
+      type="button"
+      id="mobile-menu-btn"
+      class="site-header-button lg:hidden"
+      aria-label="Toggle menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <Menu aria-hidden="true" size={23} />
+    </button>
   </div>
 
   <!-- Mobile Nav Overlay (Solid White) -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 z-[100] w-screen h-screen bg-white md:hidden hidden flex-col"
+    class="site-mobile-menu fixed inset-0 z-[100] w-full lg:hidden hidden flex-col"
     style="display: none;"
     role="dialog"
     aria-modal="true"
@@ -192,14 +112,17 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
       <div class="flex items-center gap-3">
         {
           LOGO_IMAGE.enable && SITE.logo && (
-            <img src={withBase(SITE.logo)} alt="Logo" class="h-10 w-10 object-contain" />
+            <>
+              <img src={withBase(SITE.logo)} alt="Logo" class="h-10 w-10 object-contain dark:hidden" />
+              <img src={withBase("/footer/logoCatedra_dark.svg")} alt="Logo Dark" class="h-10 w-10 object-contain hidden dark:block" />
+            </>
           )
         }
-        <span class="font-bold text-gray-900 text-xl">{SITE.labName}</span>
+        <span id="mobile-menu-title" class="font-semibold text-xl">{SITE.labName}</span>
       </div>
       <button
         onclick="window.closeMobileMenu()"
-        class="p-2 -mr-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
+        class="site-header-button"
         aria-label="Close menu"
       >
         <X className="w-8 h-8" />
@@ -212,9 +135,9 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
         nav.map((item) => (
           <a
             href={withBase(item.link)}
-            class="flex items-center justify-between w-full py-4 px-4 text-lg font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all border-b border-gray-100 last:border-0"
+            class="flex items-center justify-between w-full py-3 border-b border-gray-100 last:border-0"
+            aria-current={isCurrent(item.link) ? "page" : undefined}
             data-i18n-key={`nav.${item.key}`}
-            onclick="window.closeMobileMenu()"
           >
             <span>{item.text}</span>
             <ChevronDown className="w-5 h-5 -rotate-90 text-gray-400" />
@@ -228,9 +151,9 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
           customPages.map((item) => (
             <a
               href={withBase(item.link)}
-              class="flex items-center justify-between w-full py-4 px-4 text-lg font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all border-b border-gray-100 last:border-0"
+              class="flex items-center justify-between w-full py-3 border-b border-gray-100 last:border-0"
+              aria-current={isCurrent(item.link) ? "page" : undefined}
               data-i18n-key={item.key}
-              onclick="window.closeMobileMenu()"
             >
               <span>{item.text}</span>
               <ChevronDown className="w-5 h-5 -rotate-90 text-gray-400" />
@@ -241,7 +164,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
       {
         i18n.enabled && (
           <div class="mt-8 pt-6 border-t border-gray-100">
-            <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider px-2">
+            <div class="mobile-menu-label text-sm font-bold mb-4 px-2">
               Language
             </div>
             <div class="grid grid-cols-2 gap-3">
@@ -262,7 +185,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
 
     <!-- Footer Info -->
     <div class="p-8 bg-gray-50 shrink-0 border-t border-gray-200">
-      <p class="text-sm text-gray-500 font-medium text-center">
+      <p class="mobile-menu-footer text-sm font-medium text-center">
         © {new Date().getFullYear()}
         {SITE.labName}
       </p>
@@ -272,221 +195,85 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
 
 <script is:inline>
   (function () {
-    const btn = document.getElementById("mobile-menu-btn");
+    const button = document.getElementById("mobile-menu-btn");
     const menu = document.getElementById("mobile-menu");
-    const iconMenu = document.querySelector(".icon-menu");
-    const iconClose = document.querySelector(".icon-close");
-    const langLabel = document.getElementById("current-lang-label");
+    const desktop = window.matchMedia("(min-width: 64rem)");
 
-    let lastFocusedEl = null;
+    function setMenu(open, restoreFocus = true) {
+      if (!button || !menu) return;
+      button.setAttribute("aria-expanded", String(open));
+      menu.setAttribute("aria-hidden", String(!open));
+      menu.style.display = open ? "flex" : "none";
+      menu.classList.toggle("hidden", !open);
+      document.body.classList.toggle("overflow-hidden", open);
 
-    function setAria(open) {
-      btn?.setAttribute("aria-expanded", open ? "true" : "false");
-      menu?.setAttribute("aria-hidden", open ? "false" : "true");
-    }
-
-    function trapFocus(e) {
-      if (!menu || !menu.contains(document.activeElement)) return;
-      if (e.key !== "Tab") return;
-      const focusable = menu.querySelectorAll(
-        'a, button, input, [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
+      if (open) {
+        menu.querySelector("a")?.focus();
+      } else if (restoreFocus) {
+        button.focus();
       }
     }
 
-    function onKeydown(e) {
-      if (e.key === "Escape") {
-        window.closeMobileMenu();
-      } else {
-        trapFocus(e);
+    window.closeMobileMenu = () => setMenu(false);
+    button?.addEventListener("click", () => setMenu(button.getAttribute("aria-expanded") !== "true"));
+
+    document.addEventListener("keydown", (event) => {
+      if (button?.getAttribute("aria-expanded") !== "true") return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenu(false);
+      } else if (event.key === "Tab" && menu) {
+        const controls = [...menu.querySelectorAll("a[href], button:not([disabled])")];
+        const first = controls[0];
+        const last = controls.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       }
-    }
+    });
 
-    function openMenu() {
-      // Show menu container (display: flex)
-      if (menu) {
-        menu.style.display = "flex";
-        // Force reflow
-        menu.offsetHeight;
-        menu.classList.remove("hidden");
-
-        // Add simple fade in
-        menu.animate([{ opacity: 0 }, { opacity: 1 }], {
-          duration: 200,
-          fill: "forwards",
-          easing: "ease-out",
-        });
-      }
-
-      // Animate hamburger to X
-      iconMenu?.classList.add("rotate-90", "opacity-0");
-      iconClose?.classList.remove("hidden", "rotate-90");
-
-      // Lock body scroll
-      document.body.classList.add("overflow-hidden");
-      setAria(true);
-
-      lastFocusedEl = document.activeElement;
-      // Focus the first link
-      const firstLink = menu?.querySelector("a");
-      firstLink?.focus?.();
-
-      document.addEventListener("keydown", onKeydown);
-    }
-
-    window.closeMobileMenu = function () {
-      // Animate fade out
-      if (menu) {
-        const animation = menu.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: 200,
-          fill: "forwards",
-          easing: "ease-in",
-        });
-
-        animation.onfinish = () => {
-          menu.style.display = "none";
-          menu.classList.add("hidden");
-        };
-      }
-
-      // Animate X back to hamburger
-      iconMenu?.classList.remove("rotate-90", "opacity-0");
-      iconClose?.classList.add("rotate-90");
-      setTimeout(() => {
-        iconClose?.classList.add("hidden");
-      }, 200);
-
-      // Unlock body scroll
-      document.body.classList.remove("overflow-hidden");
-      setAria(false);
-
-      document.removeEventListener("keydown", onKeydown);
-      if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
-        lastFocusedEl.focus();
-      } else {
-        btn?.focus?.();
-      }
-    };
-
-    window.toggleMobileMenu = function (e) {
-      if (e) e.stopPropagation();
-      if (!menu) return;
-      const isHidden =
-        menu.style.display === "none" || menu.classList.contains("hidden");
-      if (isHidden) openMenu();
-      else window.closeMobileMenu();
-    };
-
-    // Close on link click in drawer
     menu?.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", window.closeMobileMenu);
+      link.addEventListener("click", () => setMenu(false));
     });
 
-    // Language handling
-    function updateHeaderLang(lang) {
-      document.querySelectorAll(".lang-option-toggle").forEach((btn) => {
-        const btnLang = btn.getAttribute("data-lang");
-        btn.setAttribute("data-active", btnLang === lang ? "true" : "false");
-      });
-      document.querySelectorAll(".lang-option").forEach((btn) => {
-        const btnLang = btn.getAttribute("data-lang");
-        if (btnLang === lang) {
-          btn.classList.add("text-blue-600", "bg-blue-50", "border-blue-200");
-        } else {
-          btn.classList.remove(
-            "text-blue-600",
-            "bg-blue-50",
-            "border-blue-200",
-          );
-        }
-      });
-    }
-
-    window.addEventListener("language-change", (e) => {
-      updateHeaderLang(e.detail.lang);
-    });
-
-    try {
-      const saved = localStorage.getItem("preferred-lang") || defaultLang;
-      updateHeaderLang(saved);
-    } catch {}
-
-    document.querySelectorAll(".lang-option-toggle").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const lang = btn.getAttribute("data-lang");
-        if (window.setLanguage) window.setLanguage(lang);
-      });
-    });
-
-    document
-      .querySelectorAll(".lang-option:not(.mobile-lang-option)")
-      .forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const lang = btn.getAttribute("data-lang");
-          if (window.setLanguage) window.setLanguage(lang);
-        });
-      });
-
-    // Auto close when resizing to desktop
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 768) window.closeMobileMenu();
-    });
-
-    // Dark Mode Handling
-    function initTheme() {
-      console.log("initTheme running");
-      const themeToggle = document.getElementById("theme-toggle");
-      console.log("themeToggle found:", themeToggle);
-      const html = document.documentElement;
-      const bulbIcon = document.querySelector(".bulb-icon");
-
-      function updateBulbStyles(isDark) {
-        if (isDark) {
-          bulbIcon?.classList.add("bulb-anim-on", "text-yellow-400");
-          bulbIcon?.classList.remove("text-gray-500");
-        } else {
-          bulbIcon?.classList.remove("bulb-anim-on", "text-yellow-400");
-          bulbIcon?.classList.add("text-gray-500");
-        }
+    desktop.addEventListener("change", (event) => {
+      if (event.matches && button?.getAttribute("aria-expanded") === "true") {
+        setMenu(false, false);
       }
+    });
 
-      // Init state
-      const currentTheme = localStorage.getItem("theme") || "light";
-      console.log("currentTheme:", currentTheme);
-      updateBulbStyles(currentTheme === "dark");
-
-      // Event Listener
-      themeToggle?.addEventListener("click", () => {
-        console.log("themeToggle clicked");
-        const isDark = html.classList.toggle("dark");
-        console.log("isDark now:", isDark);
-        const newTheme = isDark ? "dark" : "light";
-        localStorage.setItem("theme", newTheme);
-        updateBulbStyles(isDark);
-
-        // Animation trigger
-        themeToggle.classList.add("scale-125", "rotate-12");
-        setTimeout(
-          () => themeToggle.classList.remove("scale-125", "rotate-12"),
-          300,
-        );
+    function updateHeaderLanguage(lang) {
+      document.querySelectorAll(".lang-option-toggle, .lang-option").forEach((option) => {
+        const active = option.getAttribute("data-lang") === lang;
+        option.setAttribute("data-active", String(active));
+        option.setAttribute("aria-pressed", String(active));
       });
     }
 
-    // Run on load
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initTheme);
-    } else {
-      initTheme();
+    window.addEventListener("language-change", (event) => {
+      updateHeaderLanguage(event.detail.lang);
+    });
+    updateHeaderLanguage(localStorage.getItem("preferred-lang") || document.documentElement.lang);
+
+    document.querySelectorAll(".lang-option-toggle").forEach((option) => {
+      option.addEventListener("click", () => {
+        window.setLanguage?.(option.getAttribute("data-lang"));
+      });
+    });
+
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-pressed", String(root.classList.contains("dark")));
+      themeToggle.addEventListener("click", () => {
+        const dark = root.classList.toggle("dark");
+        themeToggle.setAttribute("aria-pressed", String(dark));
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      });
     }
   })();
 </script>
