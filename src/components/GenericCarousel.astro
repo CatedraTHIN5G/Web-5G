@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 interface Props {
     images: string[];
     className?: string; // Optional wrapper class
@@ -27,7 +28,7 @@ const carouselId = `carousel-${Math.random().toString(36).substr(2, 9)}`;
                 data-slide-index={index}
             >
                 <img
-                    src={img}
+                    src={withBase(img)}
                     alt={`Slide ${index + 1}`}
                     class="w-full h-full object-cover"
                 />

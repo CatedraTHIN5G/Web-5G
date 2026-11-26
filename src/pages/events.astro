@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
@@ -56,7 +57,7 @@ const events = (await getCollection("events")).sort(
                       {item.data.cover && (
                         <div class="rounded-lg overflow-hidden h-32 w-full">
                            <img 
-                            src={item.data.cover}
+                            src={withBase(item.data.cover)}
                             alt={item.data.title} 
                             class="w-full h-full object-cover transform hover:scale-110 transition-duration-500"
                            />

@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import { SITE } from "../config";
@@ -16,7 +17,8 @@ const pageTitle = title
   : `${SITE.labName} - ${SITE.university}`;
 
 // Use static OG Image fallback
-const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
+const ogImage = new URL(withBase(`/${SITE.ogImage}`), Astro.url);
+const isHome = Astro.url.pathname.replace(/\/$/, "") === withBase("/").slice(0, -1);
 ---
 
 <!doctype html>
@@ -29,7 +31,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
     />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageTitle}</title>
@@ -60,7 +62,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
     <meta property="twitter:image" content={ogImage} />
 
     {
-      Astro.url.pathname === "/" && (
+      isHome && (
         <script
           is:inline
           type="application/ld+json"
@@ -69,7 +71,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
             "@type": "Person",
             name: SITE.author,
             url: SITE.website,
-            image: new URL(SITE.avatar || SITE.logo, SITE.website).href,
+            image: new URL(withBase(SITE.avatar || SITE.logo), Astro.url).href,
             jobTitle: "Principal Investigator",
             worksFor: {
               "@type": "Organization",
@@ -127,7 +129,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
                   class="opacity-100 hover:opacity-80 transition-opacity"
                 >
                   <img
-                    src="/footer/logoCatedra_dark.svg"
+                    src={withBase("/footer/logoCatedra_dark.svg")}
                     alt="Cátedra Thin5G"
                     class="h-14"
                   />
@@ -176,22 +178,22 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
             </h4>
             <ul class="space-y-3 text-sm">
               <li>
-                <a href="/projects" class="hover:text-white transition-colors"
+                <a href={withBase("/projects")} class="hover:text-white transition-colors"
                   >Proyectos</a
                 >
               </li>
               <li>
-                <a href="/events" class="hover:text-white transition-colors"
+                <a href={withBase("/events")} class="hover:text-white transition-colors"
                   >Actividades y Eventos</a
                 >
               </li>
               <li>
-                <a href="/team" class="hover:text-white transition-colors"
+                <a href={withBase("/team")} class="hover:text-white transition-colors"
                   >Equipo</a
                 >
               </li>
               <li>
-                <a href="/join" class="hover:text-white transition-colors"
+                <a href={withBase("/join")} class="hover:text-white transition-colors"
                   >Trabaja con Nosotros</a
                 >
               </li>
@@ -257,7 +259,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
               class="hover:opacity-80 transition-opacity"
             >
               <img
-                src="/footer/PrincipadoDeAsturias.png"
+                src={withBase("/footer/PrincipadoDeAsturias.png")}
                 alt="Gobierno del Principado de Asturias"
                 class="h-11 w-auto bg-white p-1 rounded-sm"
               />
@@ -271,7 +273,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
               class="hover:opacity-80 transition-opacity"
             >
               <img
-                src="/footer/GITPA.png"
+                src={withBase("/footer/GITPA.png")}
                 alt="GITPA"
                 class="h-12 w-auto bg-white p-1 rounded-sm"
               />
@@ -285,7 +287,7 @@ const ogImage = new URL(`/${SITE.ogImage}`, Astro.url);
               class="hover:opacity-80 transition-opacity"
             >
               <img
-                src="/assets/logo-uniovi.jpg"
+                src={withBase("/assets/logo-uniovi.jpg")}
                 alt="Universidad de Oviedo"
                 class="h-12 w-auto bg-white p-1 rounded-sm"
               />

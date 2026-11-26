@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 import Layout from "../layouts/Layout.astro";
 import { Mail, GraduationCap, BookOpen, Code, Info } from "lucide-react";
 import { SITE } from "../config";
@@ -28,7 +29,7 @@ import { SITE } from "../config";
     <!-- Benefits Section (Why Join Us?) -->
     <div class="flex justify-center mb-16">
       <a
-        href="/research-lines"
+        href={withBase("/research-lines")}
         class="inline-flex items-center gap-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-full font-bold shadow-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all transform hover:-translate-y-1"
       >
         <span data-i18n-key="join.researchLines.btn">Research Lines</span>
@@ -244,7 +245,7 @@ import { SITE } from "../config";
           </p>
 
           <a
-            href="/team"
+            href={withBase("/team")}
             class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:gap-3 transition-all text-sm"
           >
             <span data-i18n-key="join.tfg.btn">Meet the Faculty</span>

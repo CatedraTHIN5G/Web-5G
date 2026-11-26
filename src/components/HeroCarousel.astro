@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 import { Image } from "astro:assets";
 
 // Props: accepts an array of image paths
@@ -19,7 +20,7 @@ const safeImages = images && images.length > 0 ? images : ["/footer/placeholder.
                 data-index={index}
             >
                 <img
-                    src={img}
+                    src={withBase(img)}
                     alt={`Hero Slide ${index + 1}`}
                     class="w-full h-full object-cover"
                 />

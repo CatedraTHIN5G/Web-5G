@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 import { SITE, LOGO_IMAGE } from "../config";
 import {
   Menu,
@@ -45,17 +46,17 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
     <div class="flex justify-between items-center h-16">
       <!-- Logo & Name -->
       <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-2 group">
+        <a href={withBase("/")} class="flex items-center gap-2 group">
           {
             LOGO_IMAGE.enable && SITE.logo && (
               <>
                 <img
-                  src={SITE.logo}
+                  src={withBase(SITE.logo)}
                   alt="Logo"
                   class="h-10 w-auto object-contain dark:hidden"
                 />
                 <img
-                  src="/footer/logoCatedra_dark.svg"
+                  src={withBase("/footer/logoCatedra_dark.svg")}
                   alt="Logo Dark"
                   class="h-10 w-auto object-contain hidden dark:block"
                 />
@@ -72,7 +73,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
             if (item.key === "search") {
               return (
                 <a
-                  href={item.link}
+                  href={withBase(item.link)}
                   class="p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-full transition-colors"
                   aria-label={item.text}
                 >
@@ -82,7 +83,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
             }
             return (
               <a
-                href={item.link}
+                href={withBase(item.link)}
                 class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-blue-400 transition-colors"
                 data-i18n-key={`nav.${item.key}`}
               >
@@ -97,7 +98,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
           customPages &&
             customPages.map((item) => (
               <a
-                href={item.link}
+                href={withBase(item.link)}
                 class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
                 data-i18n-key={item.key}
               >
@@ -191,7 +192,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
       <div class="flex items-center gap-3">
         {
           LOGO_IMAGE.enable && SITE.logo && (
-            <img src={SITE.logo} alt="Logo" class="h-10 w-10 object-contain" />
+            <img src={withBase(SITE.logo)} alt="Logo" class="h-10 w-10 object-contain" />
           )
         }
         <span class="font-bold text-gray-900 text-xl">{SITE.labName}</span>
@@ -210,7 +211,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
       {
         nav.map((item) => (
           <a
-            href={item.link}
+            href={withBase(item.link)}
             class="flex items-center justify-between w-full py-4 px-4 text-lg font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all border-b border-gray-100 last:border-0"
             data-i18n-key={`nav.${item.key}`}
             onclick="window.closeMobileMenu()"
@@ -226,7 +227,7 @@ const getIcon = (key: string) => iconMap[key] || Sparkles;
         customPages &&
           customPages.map((item) => (
             <a
-              href={item.link}
+              href={withBase(item.link)}
               class="flex items-center justify-between w-full py-4 px-4 text-lg font-medium text-gray-800 hover:text-blue-600 hover:bg-gray-50 rounded-xl transition-all border-b border-gray-100 last:border-0"
               data-i18n-key={item.key}
               onclick="window.closeMobileMenu()"
