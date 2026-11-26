@@ -6,8 +6,8 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://catedrathin5g.github.io',
-  base: '/Web-5G',
+  site: 'https://thin5g.es',
+  base: '/',
   compressHTML: true,
   build: {
     inlineStylesheets: 'always',
