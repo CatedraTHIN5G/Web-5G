@@ -6,7 +6,7 @@ summary_es: "Guía completa para configurar una Raspberry Pi 4 como pasarela 5G 
 tags: ["5G", "Raspberry Pi", "IoT", "Networking", "Linux"]
 tags_es: ["5G", "Raspberry Pi", "IoT", "Redes", "Linux"]
 date: 2024-02-01
-team: ["estudiante-daniel-solares-ardisana"]
+team: ["investigador-daniel-solares-ardisana"]
 ---
 
 ## Project Description

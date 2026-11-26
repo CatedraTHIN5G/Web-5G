@@ -6,6 +6,6 @@ summary_es: "Proyecto de desarrollo de una plataforma web para el control remoto
 tags: ["Web Platform", "Robotics", "AGV", "Remote Control", "IoT"]
 tags_es: ["Plataforma Web", "Robótica", "AGV", "Control Remoto", "IoT"]
 date: 2023-11-20
-team: ["estudiante-alvaro-javier-fernandez-de-la-concha", "estudiante-daniel-solares-ardisana"]
+team: ["estudiante-alvaro-javier-fernandez-de-la-concha", "investigador-daniel-solares-ardisana"]
 ---
 

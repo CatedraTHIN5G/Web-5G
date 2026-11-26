@@ -86,26 +86,57 @@ const groupedMembers = groups.reduce(
     const members = allMembers
       .filter((m) => group.roles.includes(m.data.role))
       .sort((a, b) => {
-        // Sort by Role Priority first (e.g. Prof before Assoc Prof)
+        // 1. Prioridad según el estado
+        const statusPriority: Record<string, number> = {
+          active: 0,
+          affiliate: 1,
+          inactive: 2,
+        };
+
+        const statusA = statusPriority[a.data.status || "inactive"] ?? 2;
+        const statusB = statusPriority[b.data.status || "inactive"] ?? 2;
+
+        if (statusA !== statusB) {
+          return statusA - statusB;
+        }
+
+        // 2. Orden personalizado mediante weight
+        const weightDiff = a.data.weight - b.data.weight;
+
+        if (weightDiff !== 0) {
+          return weightDiff;
+        }
+
+        // 3. Si tienen el mismo weight, ordenar por categoría profesional
         const roleDiff =
           getRolePriority(a.data.role) - getRolePriority(b.data.role);
-        if (roleDiff !== 0) return roleDiff;
 
-        // Then sort alphabetically by surname
+        if (roleDiff !== 0) {
+          return roleDiff;
+        }
+
+        // 4. Si todo coincide, ordenar alfabéticamente por apellidos
         const getSurname = (fullName: string) => {
           const name = fullName.trim();
-          /* Exceptions for known compound first names */
-          if (name.startsWith("Álvaro Javier")) return "Fernández De la Concha";
-          if (name.startsWith("Carmen Covadonga")) return "Blanco González";
-          if (name.startsWith("Luis Fernando")) return "Herrán Ontañón";
 
-          /* Default: Assume first word is name, rest is surname */
+          if (name.startsWith("Álvaro Javier"))
+            return "Fernández De la Concha";
+
+          if (name.startsWith("Carmen Covadonga"))
+            return "Blanco González";
+
+          if (name.startsWith("Luis Fernando"))
+            return "Herrán Ontañón";
+
           const parts = name.split(" ");
           return parts.length > 1 ? parts.slice(1).join(" ") : name;
         };
 
-        return getSurname(a.data.name).localeCompare(getSurname(b.data.name));
+        return getSurname(a.data.name).localeCompare(
+          getSurname(b.data.name)
+        );
       })
+
       .map((member) => {
         // Translate the role for the card
         const originalRole = member.data.role;

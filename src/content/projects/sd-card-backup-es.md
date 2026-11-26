@@ -1,5 +1,5 @@
 ---
-title: "Copia de Seguridad de la Tarjeta SD"
+title: "Raspberry Pi SD Card Backup & Cloning"
 title_es: "Copia de Seguridad de la Tarjeta SD"
 summary: "Guide for creating full sector-by-sector backups of Raspberry Pi SD cards using Win32 Disk Imager."
 summary_es: "Guía para realizar copias de seguridad completas sector a sector de tarjetas SD de Raspberry Pi usando Win32 Disk Imager."

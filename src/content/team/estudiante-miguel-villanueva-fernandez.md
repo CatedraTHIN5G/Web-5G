@@ -1,6 +1,6 @@
 ---
 name: "Miguel Villanueva Fernández"
-role: "Student"
+role: "Alumni"
 avatar: "/assets/default-avatar.png"
 status: "inactive"
 weight: 60

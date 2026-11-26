@@ -6,7 +6,7 @@ summary_es: "Configuración de una Raspberry Pi 4 para dar acceso a Internet usa
 tags: ["5G", "Raspberry Pi", "IoT", "Networking", "Linux"]
 tags_es: ["5G", "Raspberry Pi", "IoT", "Redes", "Linux"]
 date: 2024-02-01
-team: ["estudiante-daniel-solares-ardisana"]
+team: ["investigador-daniel-solares-ardisana"]
 ---
 
 ## Descripción del Proyecto

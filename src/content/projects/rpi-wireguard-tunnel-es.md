@@ -8,7 +8,7 @@ tags_es: ["Raspberry Pi", "Wireguard", "Redes", "VPN", "Linux"]
 date: 2024-02-15
 docUrl: ""
 codeUrl: ""
-team: ["estudiante-daniel-solares-ardisana"]
+team: ["investigador-daniel-solares-ardisana"]
 ---
 
 ## Descripción del Proyecto
