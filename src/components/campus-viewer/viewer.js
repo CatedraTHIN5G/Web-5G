@@ -432,7 +432,7 @@ function makeLoader(chunks, renderer, baseURL, center, hasPhotos, updated) {
   let visible = [];
   let visibleSet = new Set();
   let detailTargets = new Map();
-  let photographs = hasPhotos, firstView = true, cameraMoving = false, stopped = false, prefetching = false;
+  let photographs = hasPhotos, firstView = true, stopped = false, prefetching = false;
   let pendingMeshes = 0, pendingPhotos = 0, backgroundMeshes = 0, backgroundPhotos = 0;
   let detailBytes = 0, failures = 0;
 
@@ -496,7 +496,7 @@ function makeLoader(chunks, renderer, baseURL, center, hasPhotos, updated) {
       ? fetchModelAsset(part.previewUrl, baseURL, priority).then(response => response.blob())
       : originalPhoto(part, priority);
     const canUpload = () => !stopped && (!detail || (
-      photographs && !cameraMoving && visibleSet.has(entry) && (detailTargets.get(part) ?? 0) >= targetBytes
+      photographs && visibleSet.has(entry) && (detailTargets.get(part) ?? 0) >= targetBytes
     ));
     source.then(async blob => {
       const size = detail && targetBytes < part.textureBytes ? Math.sqrt(targetBytes / 4) : 0;
@@ -580,7 +580,7 @@ function makeLoader(chunks, renderer, baseURL, center, hasPhotos, updated) {
         if (pendingPhotos < 3 && !part.photoState) loadPhoto(entry, part);
       }
     }
-    if (firstView || cameraMoving) return;
+    if (firstView) return;
 
     if (pendingPhotos < 3 && !backgroundPhotos) {
       for (const entry of entries) {
@@ -614,7 +614,7 @@ function makeLoader(chunks, renderer, baseURL, center, hasPhotos, updated) {
         if (!visibleSet.has(entry) && entry.state === "queued") loadMesh(entry, true);
       }
     }
-    if (!firstView && !cameraMoving) discardUnneededDetails();
+    if (!firstView) discardUnneededDetails();
     if (photographs) pumpPhotos();
     if (!firstView) prefetchOriginal();
   }
@@ -639,15 +639,14 @@ function makeLoader(chunks, renderer, baseURL, center, hasPhotos, updated) {
         terrainAvailable: visible.length > 0 && visible.every(entry => entry.state === "ready"),
       };
     },
-    request(matrix, planes, subject, showPhotos, loading, width, height, moving) {
+    request(matrix, planes, subject, showPhotos, loading, width, height) {
       visible = entries.filter(entry => insideView(entry.chunk.bounds, planes))
         .sort((a, b) => distanceToBounds(a.chunk.bounds, subject) - distanceToBounds(b.chunk.bounds, subject));
       visibleSet = new Set(visible);
       photographs = showPhotos;
       firstView = loading;
-      cameraMoving = moving;
       if (firstView || !photographs) detailTargets.clear();
-      else if (!cameraMoving) detailTargets = planDetail(matrix, width, height);
+      else detailTargets = planDetail(matrix, width, height);
       pump();
     },
     stop() {
@@ -1108,7 +1107,7 @@ function boot(root) {
       const matrix = cameraMatrix(eye, subject, width / Math.max(1, viewHeight), focusInset / Math.max(1, width));
       const planes = viewPlanes(matrix);
       if (stage.dataset.modelState !== "revealing") {
-        loader.request(matrix, planes, subject, photoMode, loading, pixelWidth, pixelHeight, cameraMoving);
+        loader.request(matrix, planes, subject, photoMode, loading, pixelWidth, pixelHeight);
       }
       renderer.render(pixelWidth, pixelHeight, matrix, planes, loader.available, photoMode);
       if (loader.available.length) {
