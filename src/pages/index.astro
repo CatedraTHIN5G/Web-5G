@@ -3,6 +3,7 @@ import { withBase } from "../utils/urls";
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { ArrowDownRight, ArrowRight } from "lucide-react";
+import CampusViewer from "../components/CampusViewer.astro";
 import HeroCarousel from "../components/HeroCarousel.astro";
 import { SITE } from "../config";
 import "../styles/home.css";
@@ -23,38 +24,16 @@ const events = (await getCollection("events"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-// Dynamic Carousel Images
-import fs from "node:fs";
-import path from "node:path";
-
-const carouselDir = path.join(process.cwd(), "public", "Fotos", "About");
-let carouselImages: string[] = [];
-
-try {
-  if (fs.existsSync(carouselDir)) {
-    const files = fs.readdirSync(carouselDir);
-    carouselImages = files
-      .filter((file) => /\.(jpg|jpeg|png|webp|avif|svg)$/i.test(file))
-      .map((file) => `/Fotos/About/${file}`);
-  }
-} catch (error) {
-  console.error("Error reading carrusel images:", error);
-}
-
-// Fallback if no images found
-if (carouselImages.length === 0) {
-  carouselImages = ["/footer/GITPA.png"];
-}
-
-const openingPhoto = "/Fotos/About/IMG20221006090001.jpg";
-if (carouselImages.includes(openingPhoto)) {
-  carouselImages = [openingPhoto, ...carouselImages.filter((image) => image !== openingPhoto)];
-}
+const labPhotos = [
+  "/Fotos/About/IMG20221006090001.jpg",
+  "/Fotos/About/IMG_4673_Original.jpg",
+  "/Fotos/About/IMG_4459.JPG",
+];
 ---
 
 <Layout title="Home">
-  <section class="home-hero site-frame" aria-labelledby="home-title">
-    <div class="home-hero-copy">
+  <CampusViewer>
+    <div slot="introduction" class="home-hero-copy">
       <h1 id="home-title" data-i18n-key="hero.title">{SITE.hero.title}</h1>
       <p data-i18n-key="hero.subtitle">{SITE.hero.subtitle}</p>
       <div class="home-actions">
@@ -69,8 +48,8 @@ if (carouselImages.includes(openingPhoto)) {
       </div>
     </div>
 
-    <HeroCarousel images={carouselImages} />
-  </section>
+    <HeroCarousel slot="photos" images={labPhotos} autoplay={false} />
+  </CampusViewer>
 
   <section class="home-section site-frame" aria-labelledby="featured-projects">
     <div class="home-section-heading">

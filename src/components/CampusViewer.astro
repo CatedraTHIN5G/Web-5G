@@ -1,0 +1,133 @@
+---
+import { withBase } from "../utils/urls";
+import data from "./campus-viewer/campus.json";
+import "./campus-viewer/viewer.css";
+
+interface Props {
+  modelUrl?: string;
+}
+
+const modelUrl = Astro.props.modelUrl ?? withBase("/model/manifest.json");
+---
+
+<link rel="preload" as="fetch" href={modelUrl} crossorigin="anonymous" fetchpriority="high" />
+<section class="home-hero campus-introduction" data-campus-viewer data-model-url={modelUrl} aria-labelledby="home-title">
+  <div class="campus-story">
+    <div class="campus-intro" data-campus-chapter>
+      <slot name="introduction" />
+      <nav class="campus-guide" aria-label="Campus tour / Recorrido por el campus" data-campus-nav>
+        <a href="#campus-buildings" data-i18n-en="Campus" data-i18n-es="Campus">Campus</a>
+        <a href="#campus-lab" data-i18n-en="Find the lab" data-i18n-es="Dónde está el laboratorio">Find the lab</a>
+        <a href="#campus-network" data-i18n-en="5G network" data-i18n-es="Red 5G">5G network</a>
+      </nav>
+    </div>
+
+    <section id="campus-buildings" class="campus-chapter" data-campus-chapter>
+      <div class="campus-chapter-copy">
+        <h2 data-i18n-en="Gijón campus" data-i18n-es="Campus de Gijón">Gijón campus</h2>
+        <p
+          data-i18n-en="The Polivalente building, on the west side of the University of Oviedo’s Gijón campus, houses the Martin Cooper Open 5G Laboratory. Select a building to zoom in. Select it again to return to the overview."
+          data-i18n-es="El Laboratorio Abierto 5G «Martin Cooper» está en el Edificio Polivalente, al oeste del campus de Gijón de la Universidad de Oviedo. Selecciona un edificio para acercarte. Vuelve a seleccionarlo para regresar a la vista general."
+        >The Polivalente building, on the west side of the University of Oviedo’s Gijón campus, houses the Martin Cooper Open 5G Laboratory. Select a building to zoom in. Select it again to return to the overview.</p>
+        <ul class="campus-buildings" aria-label="Edificios / Buildings">
+          {data.buildings.map((building, index) => (
+            <li><button type="button" data-building={index} aria-pressed="false" disabled>{building.name}</button></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="campus-lab" class="campus-chapter campus-lab" data-campus-chapter data-campus-lab-zoom aria-labelledby="campus-lab-title">
+      <div class="campus-chapter-copy">
+        <h2 id="campus-lab-title" data-i18n-en="Martin Cooper Open 5G Laboratory" data-i18n-es="Laboratorio Abierto 5G «Martin Cooper»">Martin Cooper Open 5G Laboratory</h2>
+        <p
+          data-i18n-en="The lab is in Module 7 of the Polivalente building. It took Cooper’s name during his visit on October 19, 2023. A plaque commemorates the occasion."
+          data-i18n-es="El laboratorio está en el módulo 7 del Edificio Polivalente. Adoptó el nombre de Cooper durante su visita el 19 de octubre de 2023. Una placa recuerda el homenaje."
+        >The lab is in Module 7 of the Polivalente building. It took Cooper’s name during his visit on October 19, 2023. A plaque commemorates the occasion.</p>
+        <p
+          data-i18n-en="Inside, a permanent mobile phone exhibition shares space with the private 5G network. In 1973, Cooper made the first public call from a handheld cell phone to Joel Engel, his rival at AT&amp;T."
+          data-i18n-es="Dentro, una exposición permanente de telefonía móvil convive con la red privada 5G. En 1973, Cooper hizo la primera llamada pública desde un móvil de mano a Joel Engel, su rival en AT&amp;T."
+        >Inside, a permanent mobile phone exhibition shares space with the private 5G network. In 1973, Cooper made the first public call from a handheld cell phone to Joel Engel, his rival at AT&amp;T.</p>
+      </div>
+    </section>
+
+    <section id="campus-network" class="campus-chapter" data-campus-chapter>
+      <div class="campus-chapter-copy">
+        <h2 data-i18n-en="The private 5G network" data-i18n-es="La red privada 5G">The private 5G network</h2>
+        <p
+          data-i18n-en="The University of Oviedo presented its private standalone 5G network on January 14, 2026. It has its own 5G core, two outdoor sites on the Gijón campus and indoor coverage in the Martin Cooper Lab."
+          data-i18n-es="La Universidad de Oviedo presentó su red privada 5G autónoma (SA) el 14 de enero de 2026. Cuenta con un núcleo 5G propio, dos emplazamientos exteriores en el campus de Gijón y cobertura interior en el Laboratorio Martin Cooper."
+        >The University of Oviedo presented its private standalone 5G network on January 14, 2026. It has its own 5G core, two outdoor sites on the Gijón campus and indoor coverage in the Martin Cooper Lab.</p>
+        <p
+          data-i18n-en="The network supports the FR1 and FR2 bands."
+          data-i18n-es="La red admite las bandas FR1 y FR2."
+        >The network supports the FR1 and FR2 bands.</p>
+        <p
+          data-i18n-en="The THIN5G Chair manages the network for teaching, research and trials with industry, including applications in industrial robotics and the Internet of Things."
+          data-i18n-es="La Cátedra THIN5G gestiona la red para docencia, investigación y pruebas con empresas, con aplicaciones en robótica industrial e Internet de las cosas."
+        >The THIN5G Chair manages the network for teaching, research and trials with industry, including applications in industrial robotics and the Internet of Things.</p>
+        <nav class="campus-guide" aria-label="5G network sources / Fuentes sobre la red 5G">
+          <a href="https://thin5g.uniovi.es/unico-i-d-6g-2022" data-i18n-en="Network project" data-i18n-es="Proyecto de la red">Network project</a>
+        </nav>
+      </div>
+    </section>
+
+    <section id="campus-antennas" class="campus-chapter" data-campus-chapter>
+      <div class="campus-chapter-copy">
+        <h2 data-i18n-en="The two 5G antennas" data-i18n-es="Las dos antenas 5G">The two 5G antennas</h2>
+        <p
+          data-i18n-en="The private 5G network has an outdoor antenna at the Polivalente building, beside the Martin Cooper Lab, and another at the School of Civil Marine."
+          data-i18n-es="La red privada 5G tiene una antena exterior en el Edificio Polivalente, junto al Laboratorio Martin Cooper, y otra en la Escuela Superior de la Marina Civil."
+        >The private 5G network has an outdoor antenna at the Polivalente building, beside the Martin Cooper Lab, and another at the School of Civil Marine.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="campus-visual">
+    <div id="campus-map" data-campus-part="map" hidden>
+      <div class="campus-stage" data-campus-part="stage" data-chapter="0">
+        <canvas class="campus-canvas" data-campus-part="model" aria-label="Gijón campus map / Mapa del campus de Gijón"></canvas>
+        <canvas class="campus-canvas campus-annotations" data-campus-part="annotation-lines" aria-hidden="true"></canvas>
+        <div class="campus-labels" data-campus-part="map-labels" aria-hidden="true"></div>
+
+        <div class="campus-stage-top">
+          <button class="campus-photo-toggle" data-campus-part="photo-toggle" type="button" aria-pressed="false" hidden data-i18n-en="Aerial imagery" data-i18n-es="Fotografía aérea">Aerial imagery</button>
+        </div>
+
+        <div class="campus-loader" data-campus-part="map-loader" data-state="ready" aria-hidden="true">
+          <div class="campus-loader-panel">
+            <div class="campus-scan" aria-hidden="true"></div>
+            <div class="campus-loader-caption">
+              <p data-campus-part="map-status" role="status" hidden></p>
+              <span data-campus-part="map-load-percent" aria-hidden="true">0%</span>
+            </div>
+            <progress data-campus-part="map-load-progress" max="100" aria-label="Model loading / Carga del modelo"></progress>
+          </div>
+        </div>
+
+        <aside class="campus-photos" data-campus-part="gallery" aria-labelledby="campus-photos-title" hidden inert>
+          <p id="campus-photos-title" data-i18n-en="Inside the lab" data-i18n-es="Dentro del laboratorio">Inside the lab</p>
+          <slot name="photos" />
+        </aside>
+
+        <div class="campus-stage-bottom">
+          <span data-campus-part="map-credit" data-i18n-en="Campus plan" data-i18n-es="Plano del campus">Campus plan</span>
+          <ul class="campus-legend" aria-label="Legend / Leyenda">
+            <li><span class="campus-legend-building" aria-hidden="true"></span><span data-i18n-en="Building" data-i18n-es="Edificio">Building</span></li>
+            <li><span class="campus-legend-node" aria-hidden="true"></span><span data-i18n-en="5G node" data-i18n-es="Nodo 5G">5G node</span></li>
+          </ul>
+        </div>
+
+        <progress class="campus-progress" data-campus-progress value="0" max="1" aria-hidden="true"></progress>
+      </div>
+    </div>
+
+    <noscript>
+      <img class="campus-static-photo" src={withBase("/Fotos/About/IMG20221006090001.jpg")} alt="Equipment in the THIN5G Open Lab" />
+    </noscript>
+  </div>
+</section>
+
+<script>
+  import "./campus-viewer/viewer.js";
+</script>

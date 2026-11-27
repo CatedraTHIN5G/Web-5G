@@ -46,3 +46,7 @@ coverage/
 /PRODUCT.md
 /design.md
 /product.md
+
+# Local viewer transfer archive
+/thin5g_integration.zip
+/public/model/

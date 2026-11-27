@@ -4,9 +4,10 @@ import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 
 interface Props {
   images: string[];
+  autoplay?: boolean;
 }
 
-const { images } = Astro.props;
+const { images, autoplay = true } = Astro.props;
 const photos = (images.length ? images : ["/footer/placeholder.svg"]).map(withBase);
 const formatNumber = (number: number) => String(number).padStart(2, "0");
 ---
@@ -21,7 +22,8 @@ const formatNumber = (number: number) => String(number).padStart(2, "0");
           alt={index === 0 ? "Equipment on display at the THIN5G Open Lab" : `THIN5G Open Lab, ${index + 1}`}
           aria-hidden={index === 0 ? "false" : "true"}
           data-visible={index === 0 ? "true" : "false"}
-          fetchpriority={index === 0 ? "high" : undefined}
+          loading={index === 0 && !autoplay ? "lazy" : undefined}
+          fetchpriority={index === 0 && autoplay ? "high" : undefined}
           decoding="async"
         />
       ))
@@ -43,12 +45,12 @@ const formatNumber = (number: number) => String(number).padStart(2, "0");
           <span class="sr-only i18n-content-en">Next photo</span>
           <span class="sr-only i18n-content-es">Siguiente foto</span>
         </button>
-        <button type="button" data-gallery-pause aria-pressed="false">
+        {autoplay && <button type="button" data-gallery-pause aria-pressed="false">
           <Pause aria-hidden="true" size={17} className="gallery-pause-icon" />
           <Play aria-hidden="true" size={17} className="gallery-play-icon" />
           <span class="sr-only i18n-content-en">Pause slideshow</span>
           <span class="sr-only i18n-content-es">Pausar presentación</span>
-        </button>
+        </button>}
       </div>
     </div>
   )}
@@ -65,7 +67,7 @@ const formatNumber = (number: number) => String(number).padStart(2, "0");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let current = 0;
     let requested = 0;
-    let playing = !reducedMotion.matches;
+    let playing = Boolean(pause) && !reducedMotion.matches;
     let timer: number | undefined;
 
     async function showPhoto(index: number) {
@@ -115,7 +117,7 @@ const formatNumber = (number: number) => String(number).padStart(2, "0");
       updateTimer();
     });
     reducedMotion.addEventListener("change", (event) => {
-      playing = !event.matches;
+      playing = Boolean(pause) && !event.matches;
       updateTimer();
     });
     gallery.addEventListener("pointerenter", stopTimer);
